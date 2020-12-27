@@ -1,5 +1,6 @@
-@import url(./partial-css/index.tailwind.css);
-@import url(./partial-css/index.general.css);
+@import url(./partial-css/tailwind.css);
+@import url(./partial-css/all.min.css);
+@import url(./partial-css/general.css);
 
 
 

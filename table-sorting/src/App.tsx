@@ -1,25 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+
+} from "react-router-dom";
+import Sorter from './components/Sorter';
+import Welcome from './components/Welcome';
+import { useCustomCss_vh } from './custom-hooks/useCustomCss_vh';
+
+
+
 function App() {
+
+  const [isAtWelcomeScreen, setIsAtWelcomeScreen] = useState<boolean>(true);
+  
+  useCustomCss_vh();
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+
+
+        {/* https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4 */}
+        {/* https://www.codegrepper.com/code-examples/javascript/Programmatically+navigate+using+react+router */}
+        <Route path="/welcome" render={({history})=>(
+          <Welcome onStartExploring={()=>history.push("/sorter")} />
+        )}/>
+
+          
+
+        <Route path="/sorter">
+          <Sorter />
+        </Route>
+
+
+
+        {/* Redirects */}
+        <Route path="/">
+          <Redirect to="/welcome" />
+        </Route>
+        <Route path="*">
+          <Redirect to="/sorter" />
+        </Route>
+
+      </Switch>
+    </Router>
+
   );
 }
 
