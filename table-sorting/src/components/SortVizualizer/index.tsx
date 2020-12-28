@@ -1,11 +1,10 @@
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
-import { useForceRerender } from "../../custom-hooks/useForceRerender";
 import sort, { swap } from "./qSort";
+import "./index.css"
 
 type BarProxy = {
   value: number; 
   handleNo: number; 
-  // fc: (props: {position: number, height: number}) => JSX.Element
 }
 type BarProps = {
   height: number,
@@ -18,24 +17,9 @@ type Props = {
 export default function SortVizualizer({nBars}: Props) {
 
   const getRandomHeight = () => 5 + Math.round(Math.random() * 20) * 5;
-  const withKeyID = (Component: (props: BarProps) => JSX.Element, key: number): (props: {position: number, height: number}) => JSX.Element=>{ 
-    return (props) => <Component key={key} id={key} {...props}/>
-  }
-
-
-
   // The height and position of the bars being vizualized are contained in bars
-  const bars = useRef<BarProxy[]>(
-    Array(nBars)
-    .fill(0)
-    .map((_, idx)=> ({value: getRandomHeight(), handleNo: idx}))
-    // .map((height, idx) => ({
-      // value: height, 
-      // handleNo: idx,
-      // fc: withKeyID(({height, position, id}: BarProps)=><div style={{height: height + "%", left: `calc(${position} * 2 * var(--width))`}} id={`design-element-bar-${id}`} />, idx)
-    // }))
-  )
-  console.log(bars, nBars)
+  const bars = useRef<BarProxy[]>(Array(nBars).fill(0).map((_, idx)=> ({value: getRandomHeight(), handleNo: idx})))
+
 
 
 
@@ -100,34 +84,24 @@ export default function SortVizualizer({nBars}: Props) {
 
 
   return (
-    <div className="design-element-container hidden md:flex absolute" style={{"--count": bars.current.length * 2} as CSSProperties}>
+    <div id="sort-vizualizer" style={{"--count": bars.current.length * 2} as CSSProperties}>
       {
           bars
           .current
-          .map((curr, idx) => {
+          // Adjust Height and position of bar
+          .map((_, idx) => {
             const position = bars.current.findIndex(bar => bar.handleNo === idx); 
             const height = bars.current[position].value;
-            return <div key={idx} style={{height: height + "%", left: `calc(${position} * 2 * var(--width))`}} id={`design-element-bar-${idx}`} />
+            return <div key={idx} style={{height: height + "%", left: `calc(${position} * 2 * var(--width))`}} id={`sort-vizualizer-bar-${idx}`} />
           })
+          // Insert a dummy div between each bar, to space them
           .reduce(
             (acc, curr, idx) => [...acc, curr, <div key={bars.current.length + idx}/>], 
             [<div/>]
           )
+          // Remove the initial value of acc
           .slice(1)
       }
-      {/* {
-        bars
-          .current
-          .map((_, idx) => { 
-            const position = bars.current.findIndex(bar => bar.handleNo === idx); 
-            return position >= 0 ? bars.current[position].fc({position, height: bars.current[position].value }) : <div/>
-          })
-          .reduce(
-            (acc, curr, idx) => [...acc, curr, <div key={bars.current.length + idx}/>], 
-            [<div/>]
-          )
-          .slice(1)
-      } */}
     </div>
   )
 }
@@ -138,10 +112,3 @@ export default function SortVizualizer({nBars}: Props) {
   nBars: 15
 }
 
-// function DesignElementBar({height, position, id}:BarProps){
-//   return (
-//     <div style={{height: height + "%", left: `calc(${position} * 2 * var(--width))`}} id={`design-element-bar-${id}`}></div>
-//     // <div style={{height: height + "%", left: `calc(${position} * 2 * var(--width))`}} id={`design-element-bar-${id}`} />
-//     // <div style={{height: height + "%", left: `calc(${position} * var(--width))`}} id={`design-element-bar-${id}`}></div>
-//   )
-// }

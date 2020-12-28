@@ -1,6 +1,6 @@
 import './index.css';
 import hero from './assets/bg.svg';
-import SortVizualizer from "./SortVizualizer"
+import SortVizualizer from "../SortVizualizer"
 
 export type Props = {
   onStartExploring: ()=>void
@@ -21,14 +21,14 @@ export default function Welcome({onStartExploring}: Props) {
         <img src={hero} alt="Sorting Algorithm"/>
       </section>
 
-      <section>
+      <section className="welcome__subtext">
         <h3>
-          <p className="text-1xl-m mb-4">Supported Sorters: </p>
+          <p className="text-1xl-m mb-4 lg:text-2xl">Supported Sorters: </p>
           <ul>
-            <li><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
-            <li><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
-            <li><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
-            <li><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
+            <li className="lg:text-1xl-m"><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
+            <li className="lg:text-1xl-m"><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
+            <li className="lg:text-1xl-m"><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
+            <li className="lg:text-1xl-m"><i className="far fa-check-circle mr-4 ml-4 mb-2"></i><span>blbdf sldfs</span> </li>
           </ul>
         </h3>
       </section>
@@ -38,8 +38,10 @@ export default function Welcome({onStartExploring}: Props) {
       </footer>
 
 
-
-      <SortVizualizer/>
+      <div className="welcome__design-element flex hidden- md:flex- md:absolute">
+        <SortVizualizer/>
+      </div>
+      
 
     </main>
     

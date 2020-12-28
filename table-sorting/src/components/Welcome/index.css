@@ -1,14 +1,16 @@
 #welcome {
   display: grid;
-  grid-template: auto 1fr auto auto / 1fr;
+  grid-template: auto 1fr auto 3rem auto / 1fr;
   grid-template-areas: 
     'header '
     'hero'
     'sub-header'
+    'design'
     'footer';
 
   height: calc(100 * var(--vh) - 4rem);
-  margin: 2rem 0;
+  margin: 2rem auto;
+  max-width: 600px;
 }
 #welcome > *{
   padding-left: 2rem;
@@ -17,27 +19,6 @@
 }
 #welcome > *:last-child{
   margin-bottom: 0;
-}
-@media (min-width: 768px){
-  #welcome {
-    grid-template: 1fr 1fr auto / 1fr 1fr;
-    grid-template-areas:
-        'header hero'
-        'sub-header hero'
-        'footer ...';
-    margin: 4rem auto;
-    height: calc(100 * var(--vh) - 8rem);
-    max-width: 1280px;
-  }
-  #welcome > *{
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-  .welcome__header{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
 }
 .welcome__hero{
   grid-area: hero;
@@ -50,27 +31,42 @@
   grid-area: footer;
   margin-bottom: 0 !important;
 } 
-
-.design-element-container{
-  bottom: 0;
-  right: 0;
-  height: 35vh;
-  left: 50%;
+.welcome__design-element{
   align-items: flex-end;
-  padding: 0 !important;
+  padding-bottom: .5rem;
+  grid-area: design;
 }
-.design-element-container div{
-  --width: calc(100% / var(--count));
-  width: var(--width);
-  height: 50px;
-  background-color: blue;
-  border: 1px solid blue;
-  /* outline: 1px solid blue; */
-  opacity: .1;
-  transition: height .3s, left .3s;
-  position: absolute;
-  /* z-index: -1; */
+.welcome__subtext{
+  margin-bottom: 1rem !important;
 }
-.design-element-container div:nth-child(2n){
-  opacity: 0;
+
+@media (min-width: 768px){
+  #welcome {
+    grid-template: 1fr 1fr auto / 1fr 1fr;
+    grid-template-areas:
+        'header hero'
+        'sub-header hero'
+        'footer .';
+    margin: 4rem auto;
+    height: calc(100 * var(--vh) - 8rem);
+    max-width: 1280px;
+  }
+  #welcome > *{
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  .welcome__header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-area: header;
+  }
+  .welcome__design-element{
+    bottom: 0;
+    right: 0;
+    height: 35vh;
+    left: 50%;
+    /* padding: 0 !important; */
+    padding-bottom: 0;
+  }
 }
