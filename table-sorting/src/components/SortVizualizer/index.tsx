@@ -1,10 +1,12 @@
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
-import sort, { swap } from "./qSort";
+
+import getSorter, { swap, TSorterNames } from "./utilsSort";
 import "./index.css"
 
 type BarProxy = {
   value: number; 
   handleNo: number; 
+  class: string;
 }
 type BarProps = {
   height: number,
@@ -14,11 +16,16 @@ type BarProps = {
 type Props = {
   nBars?: number
 }
+
 export default function SortVizualizer({nBars}: Props) {
+
+  const [currentSortingAlsorithm, setCurrentSortingAlsorithm] = useState<TSorterNames>("merge-sort")
+
+
 
   const getRandomHeight = () => 5 + Math.round(Math.random() * 20) * 5;
   // The height and position of the bars being vizualized are contained in bars
-  const bars = useRef<BarProxy[]>(Array(nBars).fill(0).map((_, idx)=> ({value: getRandomHeight(), handleNo: idx})))
+  const bars = useRef<BarProxy[]>(Array(nBars).fill(0).map((_, idx)=> ({value: getRandomHeight(), handleNo: idx, class: ""})))
 
 
 
@@ -42,11 +49,21 @@ export default function SortVizualizer({nBars}: Props) {
         barEffects.current.push({f: ()=>{}, timeout: 1500});
 
         // Presort array and record swap movements that need to happen in order to get eventually to a sorted set bars
-        sort(
+        getSorter(currentSortingAlsorithm)(
           bars.current.map(curr=>curr.value), 
           0, 
           bars.current.length - 1, 
-          (initial: number, final: number)=>barEffects.current.push({f: ()=>swap(bars.current, initial, final), timeout: barEffects.current.length === 0 ? 1500 : 300})
+          (initial, final, level1, level2, isSwapEffect)=>barEffects.current.push({
+            f: ()=>{ 
+              if(isSwapEffect) swap(bars.current, initial, final); 
+              if(!isSwapEffect) { bars.current[initial].value = final; } 
+              // console.log(level1)
+              bars.current.forEach(bar => bar.class = "");
+              level1?.forEach(idx => bars.current[idx].class = "emphasis-1");
+              level2?.forEach(idx => bars.current[idx].class = "emphasis-2");
+            }, 
+            timeout: barEffects.current.length === 0 ? 1500 : 300
+          })
         );
 
         // Schedule the recorded effects to be run one by one
@@ -92,7 +109,8 @@ export default function SortVizualizer({nBars}: Props) {
           .map((_, idx) => {
             const position = bars.current.findIndex(bar => bar.handleNo === idx); 
             const height = bars.current[position].value;
-            return <div key={idx} style={{height: height + "%", left: `calc(${position} * 2 * var(--width))`}} id={`sort-vizualizer-bar-${idx}`} />
+            const className = bars.current[position].class;
+            return <div key={idx} style={{height: height + "%", left: `calc(${position} * 2 * var(--width))`}} className={className} id={`sort-vizualizer-bar-${idx}`} />
           })
           // Insert a dummy div between each bar, to space them
           .reduce(
@@ -102,6 +120,17 @@ export default function SortVizualizer({nBars}: Props) {
           // Remove the initial value of acc
           .slice(1)
       }
+      <div className="sort-vizualizer__settings">
+        <i className="fa fa-info-circle" aria-hidden="true"></i>
+        <select id="sort-vizualizer__algorithm" name="sort-vizualizer__algorithm" value={currentSortingAlsorithm} onChange={evt=>setCurrentSortingAlsorithm(evt.target.value as TSorterNames)}>
+          <option value="quick-sort">Quick Sort</option>
+          <option value="bubble-sort">Bubble Sort</option>
+          <option value="heap-sort">Heap Sort</option>
+          <option value="merge-sort">Merge Sort</option>
+          <option value="selection-sort">Selection Sort</option>
+          <option value="insertion-sort">Insertion Sort</option>
+        </select>
+      </div>
     </div>
   )
 }

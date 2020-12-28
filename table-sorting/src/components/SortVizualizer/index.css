@@ -21,3 +21,50 @@
 #sort-vizualizer div:nth-child(2n){
   opacity: 0;
 }
+
+#sort-vizualizer .sort-vizualizer__settings{
+  position: absolute;
+  height: auto;
+  width: auto;
+  background-color: transparent;
+  opacity: .2;
+  border: none;
+  padding: .2rem 0;
+  padding-left: .5rem;
+  right: var(--width);
+  bottom: 1rem;
+  display: grid;
+  grid-template: 2rem / 1fr;
+  align-items: center;
+  overflow: hidden;
+}
+#sort-vizualizer .sort-vizualizer__settings:hover{
+  opacity: 1;
+  border: 1px solid #eee;
+}
+#sort-vizualizer__algorithm{
+  grid-area: 1 / 1 / 2 / 2;
+  margin-right: 2rem;
+  transition: margin .3s;
+  margin-right: -30rem;
+  opacity: 0;
+}
+#sort-vizualizer .sort-vizualizer__settings:hover #sort-vizualizer__algorithm{
+  transition: margin .3s;
+  margin-right: 2rem;
+  opacity: 1;
+}
+#sort-vizualizer .sort-vizualizer__settings i{
+  grid-area: 1 / 1 / 2 / 2;
+  text-align: right;
+  /* position: relative; */
+  /* z-index: 1; */
+}
+
+
+#sort-vizualizer div.emphasis-1{
+  opacity: .2;
+}
+#sort-vizualizer div.emphasis-2{
+  opacity: .4;
+}
