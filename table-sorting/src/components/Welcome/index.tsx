@@ -1,6 +1,6 @@
 import './index.css';
 import hero from './assets/bg.svg';
-import DesignElement from "./design"
+import SortVizualizer from "./SortVizualizer"
 
 export type Props = {
   onStartExploring: ()=>void
@@ -39,7 +39,7 @@ export default function Welcome({onStartExploring}: Props) {
 
 
 
-      <DesignElement/>
+      <SortVizualizer/>
 
     </main>
     

@@ -24,7 +24,7 @@
     grid-template-areas:
         'header hero'
         'sub-header hero'
-        'footer hero';
+        'footer ...';
     margin: 4rem auto;
     height: calc(100 * var(--vh) - 8rem);
     max-width: 1280px;
@@ -48,12 +48,13 @@
 
 .welcome__footer{
   grid-area: footer;
+  margin-bottom: 0 !important;
 } 
 
 .design-element-container{
   bottom: 0;
   right: 0;
-  height: 35vw;
+  height: 35vh;
   left: 50%;
   align-items: flex-end;
   padding: 0 !important;
@@ -63,7 +64,9 @@
   width: var(--width);
   height: 50px;
   background-color: blue;
-  opacity: .2;
+  border: 1px solid blue;
+  /* outline: 1px solid blue; */
+  opacity: .1;
   transition: height .3s, left .3s;
   position: absolute;
   /* z-index: -1; */
