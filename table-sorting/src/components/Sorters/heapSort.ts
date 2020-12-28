@@ -1,4 +1,4 @@
-import { swap, getValue, T, TSorter, TSortEffectCallback } from "./utilsSort";
+import { swap, getValue, T, TSorter, TSortEffectCallback } from ".";
 
 
 

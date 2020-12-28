@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
 
-import getSorter, { swap, TSorterNames } from "./utilsSort";
+import getSorter, { swap, TSorterNames } from "../Sorters";
 import "./index.css"
 
 type BarProxy = {
@@ -19,7 +19,12 @@ type Props = {
 
 export default function SortVizualizer({nBars}: Props) {
 
-  const [currentSortingAlsorithm, setCurrentSortingAlsorithm] = useState<TSorterNames>("merge-sort")
+  const [currentSortingAlsorithm, _setCurrentSortingAlsorithm] = useState<TSorterNames>("merge-sort");
+  const setCurrentSortingAlsorithm = (algName: TSorterNames)=>{
+    // On new alg, execute side effect to reset vizualizer
+    barEffects.current = [];
+    _setCurrentSortingAlsorithm(algName);
+  }
 
 
 
@@ -120,6 +125,9 @@ export default function SortVizualizer({nBars}: Props) {
           // Remove the initial value of acc
           .slice(1)
       }
+
+
+
       <div className="sort-vizualizer__settings">
         <i className="fa fa-info-circle" aria-hidden="true"></i>
         <select id="sort-vizualizer__algorithm" name="sort-vizualizer__algorithm" value={currentSortingAlsorithm} onChange={evt=>setCurrentSortingAlsorithm(evt.target.value as TSorterNames)}>
@@ -131,6 +139,8 @@ export default function SortVizualizer({nBars}: Props) {
           <option value="insertion-sort">Insertion Sort</option>
         </select>
       </div>
+
+      
     </div>
   )
 }

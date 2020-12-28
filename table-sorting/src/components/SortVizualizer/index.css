@@ -64,7 +64,9 @@
 
 #sort-vizualizer div.emphasis-1{
   opacity: .2;
+  background-color: red;
 }
 #sort-vizualizer div.emphasis-2{
   opacity: .4;
+  background-color: black;
 }

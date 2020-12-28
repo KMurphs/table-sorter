@@ -9,7 +9,7 @@ import {
   Redirect,
 
 } from "react-router-dom";
-import Sorter from './components/Sorter';
+import TableSorter from './components/TableSorter';
 import Welcome from './components/Welcome';
 import { useCustomCss_vh } from './custom-hooks/useCustomCss_vh';
 
@@ -36,7 +36,7 @@ function App() {
           
 
         <Route path="/sorter">
-          <Sorter />
+          <TableSorter />
         </Route>
 
 

@@ -15,7 +15,9 @@ export interface T {
 }
 export type TSortEffectCallback = (startPosition: number, endPosition: number, emphasis1?: number[], emphasis2?: number[], isSwapEffect?: boolean)=>void
 export type TSorter = (arr: T[] | number[], start: number | null, end: number | null, onMoveCb?: TSortEffectCallback)=>void
-export type TSorterNames = "quick-sort" | "bubble-sort" | "heap-sort" | "merge-sort"
+export type TSorterNames = "quick-sort" | "bubble-sort" | "heap-sort" | "merge-sort" | "selection-sort" | "insertion-sort"
+
+
 
 
 
@@ -27,6 +29,9 @@ const getSorter = function(algorithmName: string){
   if(algorithmName === "insertion-sort") return insertionSort;
   return quickSort;
 }
+export default getSorter;
+
+
 
 
 const swap = (arr: T[] | number[], low: number, high: number) => { 
@@ -36,11 +41,4 @@ const swap = (arr: T[] | number[], low: number, high: number) => {
 }
 
 const getValue = (el: T | number) => typeof(el) === "number" ? el as number : (el as T).value;
-
-
-
-
-export default getSorter;
-
-
 export { getValue, swap }
