@@ -1,5 +1,4 @@
-import { start } from "repl";
-import { swap, getValue, T, TSorter, TSortEffectCallback } from ".";
+import { getValue, T, TSorter, TSortEffectCallback } from ".";
 
 
 
@@ -22,12 +21,12 @@ const sort: TSorter = (arr, start, end, onMoveCb)=>{
 }
 
 
-const movement = (arr: T[] | number[], partialArr: T[] | number[], partialArrRunnerOffset: number, mainRunner: number, partialArrRunner: number, onMoveCb?: TSortEffectCallback)=> { 
-  arr[mainRunner] = partialArr[partialArrRunner]; 
-  // onMoveCb && onMoveCb(mainRunner, partialArrRunnerOffset + partialArrRunner, [], [], true)
-  onMoveCb && onMoveCb(mainRunner, getValue(partialArr[partialArrRunner]), [], [], false)
-  return [mainRunner + 1, partialArrRunner + 1]; 
-}
+// const movement = (arr: T[] | number[], partialArr: T[] | number[], partialArrRunnerOffset: number, mainRunner: number, partialArrRunner: number, onMoveCb?: TSortEffectCallback)=> { 
+//   arr[mainRunner] = partialArr[partialArrRunner]; 
+//   // onMoveCb && onMoveCb(mainRunner, partialArrRunnerOffset + partialArrRunner, [], [], true)
+//   onMoveCb && onMoveCb(mainRunner, getValue(partialArr[partialArrRunner]), [], [], false)
+//   return [mainRunner + 1, partialArrRunner + 1]; 
+// }
 
 const merge = (arr: T[] | number[], low: number, middle: number, high: number, onMoveCb?: TSortEffectCallback)=>{
 

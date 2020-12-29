@@ -60,3 +60,26 @@ input[name=sort-algorithm]:checked ~ label{
   font-size: .9rem;
   font-style: italic;
 }
+
+.sort-key{
+  display: inline-block;
+  background: red;
+  border-radius: 8px;
+  padding: 0rem .5rem;
+  margin: 0 .1rem;
+  cursor: pointer;
+  background-color: #666 !important;
+  color: white;
+  line-height: 1.5;
+  font-size: 1rem;
+  padding-bottom: .1rem;
+  display: inline-flex;
+  align-items: baseline;
+}
+.sort-key:hover{
+  background-color: #555 !important;
+}
+.sort-key .fas{
+  margin-left: .5rem;
+  font-size: 1rem;
+}

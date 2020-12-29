@@ -8,11 +8,11 @@ type BarProxy = {
   handleNo: number; 
   class: string;
 }
-type BarProps = {
-  height: number,
-  id: number,
-  position: number
-}
+// type BarProps = {
+//   height: number,
+//   id: number,
+//   position: number
+// }
 type Props = {
   nBars?: number
 }
@@ -92,7 +92,7 @@ export default function SortVizualizer({nBars}: Props) {
     }
 
     // This effect is run everytime counter is changed
-  }, [counter])
+  }, [counter, currentSortingAlsorithm])
 
 
 

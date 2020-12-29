@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 
 
@@ -17,7 +17,7 @@ import { useCustomCss_vh } from './custom-hooks/useCustomCss_vh';
 
 function App() {
 
-  const [isAtWelcomeScreen, setIsAtWelcomeScreen] = useState<boolean>(true);
+  // const [isAtWelcomeScreen, setIsAtWelcomeScreen] = useState<boolean>(true);
   
   useCustomCss_vh();
 

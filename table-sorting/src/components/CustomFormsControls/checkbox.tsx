@@ -67,15 +67,15 @@ function Checkbox1({value, onChange, onText, offText, constantText, extraClasses
 
 
 
-function CheckboxSource() {
+// function CheckboxSource() {
 
-  return (
-    <label htmlFor="custom-checkbox" className="custom-checkbox-container">
-       <input type="checkbox" value="1" id="custom-checkbox" name="" />
-       <div className="custom-checkbox-background">
-          <span></span>
-       </div>
-       <p>Checkbox <span>Deselected</span> <span>Selected</span></p>     
-    </label>
-  )
-}
+//   return (
+//     <label htmlFor="custom-checkbox" className="custom-checkbox-container">
+//        <input type="checkbox" value="1" id="custom-checkbox" name="" />
+//        <div className="custom-checkbox-background">
+//           <span></span>
+//        </div>
+//        <p>Checkbox <span>Deselected</span> <span>Selected</span></p>     
+//     </label>
+//   )
+// }

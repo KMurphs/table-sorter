@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Checkbox from '../CustomFormsControls/checkbox';
 import './index.css';
 import Table from './table';
 
 
-
+type TSortKey = {id: string, key:string}
 export default function TableSorter() {
 
-  const [checkbox, setCheckbox] = useState<boolean>(true)
+  const [checkbox, setCheckbox] = useState<boolean>(true);
+  const [sortKeys, _setSortKeys] = useState<TSortKey[]>([]);
+  const addToSortKeys = (newKey: TSortKey)=>{
+    _setSortKeys(keys => {
+      const existingKey = sortKeys.find(item => item.id === newKey.id)
+      return existingKey ? keys : [...keys, {...newKey}]
+    })
+  }
+  const removeFromSortKeys = (keyID: string) => _setSortKeys(keys => keys.filter(key => key.id !== keyID))
+
+  const handleDragStart = (ev: React.DragEvent<HTMLElement>) => {
+    ev.dataTransfer.setData("text", JSON.stringify({
+      id: ev.currentTarget.id,
+      key: ev.currentTarget.querySelector("span")?.innerText
+    }));
+  }
+  const allowDrop = (ev: React.DragEvent<HTMLElement>)=>{
+		ev.preventDefault();
+		ev.stopPropagation();
+  }
+  const handleDrop = (ev: React.DragEvent<HTMLElement>)=>{
+    addToSortKeys(JSON.parse(ev.dataTransfer.getData("text")) as TSortKey);
+  }
+
+
 
   return (
     <div className="table-sorter">
@@ -38,8 +62,13 @@ export default function TableSorter() {
       </header>
 
       <main className="overflow-hidden">
-        <section className="px-4 py-6 text-lg border-t border-b bg-gray-50"><span>Drag headers here to sort: </span></section>
-        <Table/>
+        <section className="px-4 py-6 text-md md:text-lg border-t border-b bg-gray-50" onDragOver={allowDrop} onDrop={handleDrop}>
+          <span>Drag headers here to sort: </span>
+          {
+            sortKeys.map((item, idx) => <span onClick={()=>removeFromSortKeys(item.id)} key={idx} id={`${item.id}--cloned`} className="sort-key">{item.key}<i className="fas fa-times"></i></span>)
+          }
+        </section>
+        <Table onDragStart={handleDragStart} keysToDisable={sortKeys.map(item=>item.id)}/>
       </main>
     </div>
     
