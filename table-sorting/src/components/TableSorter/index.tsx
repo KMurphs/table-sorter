@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Checkbox from '../CustomFormsControls/checkbox';
 import './index.css';
+import Table from './table';
 
 
 
@@ -35,7 +36,11 @@ export default function TableSorter() {
           </ul>
         </section>
       </header>
-      <main>Table</main>
+
+      <main>
+        <section className="px-4 py-6 text-lg border-t border-b bg-gray-50"><span>Drag headers here to sort: </span></section>
+        <Table/>
+      </main>
     </div>
     
   )

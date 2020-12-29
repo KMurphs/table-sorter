@@ -1,0 +1,25 @@
+.sortable-table__container{
+  width: 100vw;
+  overflow-x: auto;
+}
+.sortable-table__header__item{
+  min-width: 100px;
+  padding: 0rem 1rem;
+  background-color: #eee;
+}
+
+#sortable-table__first-column-control + table > tr > th:first-child span{
+  display: inline;
+}
+#sortable-table__first-column-control + table > tr > th:first-child i{
+  display: none;
+}
+#sortable-table__first-column-control:checked + table > tr > th:first-child{
+  min-width: 50px;
+}
+#sortable-table__first-column-control:checked + table > tr > th:first-child span{
+  display: none;
+}
+#sortable-table__first-column-control:checked + table > tr > th:first-child i{
+  display: inline;
+}

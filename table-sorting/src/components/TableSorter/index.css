@@ -1,8 +1,5 @@
 .app-menu{
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 300px;
+
 }
 @media (max-width: 991px){
   .app-menu{
@@ -10,6 +7,10 @@
     /* margin-bottom: 100%; */
     opacity: 0;
     transition: margin .3s, opacity .3s;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 250px;
   }
   #app-menu-control--hidden:checked ~ .app-menu{
     margin-top: 0;
