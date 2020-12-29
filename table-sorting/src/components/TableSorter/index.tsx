@@ -37,7 +37,7 @@ export default function TableSorter() {
         </section>
       </header>
 
-      <main>
+      <main className="overflow-hidden">
         <section className="px-4 py-6 text-lg border-t border-b bg-gray-50"><span>Drag headers here to sort: </span></section>
         <Table/>
       </main>

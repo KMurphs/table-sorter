@@ -1,5 +1,8 @@
-.app-menu{
-
+.table-sorter{
+  height: 100vh;
+  height: calc(100 * var(--vh));
+  display: grid;
+  grid-template: max-content 1fr / 1fr;
 }
 @media (max-width: 991px){
   .app-menu{

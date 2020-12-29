@@ -1,6 +1,7 @@
 .sortable-table__container{
   width: 100vw;
-  overflow-x: auto;
+  overflow: auto;
+  height: 100%;
 }
 .sortable-table__header__item{
   min-width: 100px;
@@ -8,18 +9,84 @@
   background-color: #eee;
 }
 
-#sortable-table__first-column-control + table > tr > th:first-child span{
+
+/* Table border */
+.sortable-table__container table tr td{
+  border-top: 1px solid #dee2e6;
+}
+/* Alternate row background */
+.sortable-table__container table tr:nth-of-type(2n+1) {
+  background-color: rgba(0,0,0,.02);
+}
+/* Row Hover */
+.sortable-table__container table tr {
+  transition: background-color .3s;
+}
+.sortable-table__container table tr:hover {
+  background-color: rgba(0,0,0,.075);
+  transition: background-color .3s;
+}
+
+
+
+/* First Column behavior on mobile */
+#sortable-table__first-column-control + table > tr > *:first-child span{
+  white-space: nowrap;
+  white-space: break-spaces;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 50px;
+  /* display: inline-block; */
+  font-size: .7rem;
+}
+#sortable-table__first-column-control:checked + table > tr > *:first-child span{
   display: inline;
+  width: auto;
 }
-#sortable-table__first-column-control + table > tr > th:first-child i{
-  display: none;
+#sortable-table__first-column-control + table > tr > th:first-child .fa-angle-double-right { display: none; }
+#sortable-table__first-column-control + table > tr > th:first-child .fa-angle-double-left { display: inline; }
+#sortable-table__first-column-control:checked + table > tr > th:first-child .fa-angle-double-right { display: inline; }
+#sortable-table__first-column-control:checked + table > tr > th:first-child .fa-angle-double-left { display: none; }
+#sortable-table__first-column-control:checked + table > tr > *:first-child span { display: none; }
+
+
+
+/* Fixed first row and column */
+.sortable-table__container table th, 
+.sortable-table__container table td {
+  white-space: nowrap;
+  padding: 10px 20px;
 }
-#sortable-table__first-column-control:checked + table > tr > th:first-child{
-  min-width: 50px;
+.sortable-table__container table tr th:first-child, 
+.sortable-table__container table td:first-child{
+  position: sticky;
+  width: 100px;
+  left: 0;
+  z-index: 10;
+  background: #fff;
+  padding-left: .3rem;
+  padding-right: .3rem;
+  min-width: auto;
+  background-color: #efefef;
 }
-#sortable-table__first-column-control:checked + table > tr > th:first-child span{
-  display: none;
+.sortable-table__container table tr th{
+  position: sticky;
+  top: 0;
+  z-index: 9;
+  background: #fff;
+  background-color: #666 !important;
+  color: white;
 }
-#sortable-table__first-column-control:checked + table > tr > th:first-child i{
-  display: inline;
+.sortable-table__container table tr th:first-child{
+  z-index: 11;
+  background-color: #555 !important;
 }
+
+.sortable-table__container table tr th span{
+  font-size: .9rem;
+}
+.sortable-table__container table td{
+  text-align: right;
+}
+
+
