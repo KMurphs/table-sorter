@@ -1,0 +1,58 @@
+.app-menu{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 300px;
+}
+@media (max-width: 991px){
+  .app-menu{
+    margin-top: -100vh;
+    /* margin-bottom: 100%; */
+    opacity: 0;
+    transition: margin .3s, opacity .3s;
+  }
+  #app-menu-control--hidden:checked ~ .app-menu{
+    margin-top: 0;
+    /* margin-bottom: 0%; */
+    opacity: 1;
+    transition: margin .3s, opacity .3s;
+  }
+}
+
+
+
+
+.table-sorter__header{
+  grid-template: 1fr / 1fr;
+}
+
+
+input[name=sort-algorithm] ~ label{
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+input[name=sort-algorithm]:checked ~ label{
+  color: #fff;
+  background-color: #545b62;
+  border-color: #4e555b;
+}
+/* input.sort-algorithm[type=radio]:checked ~ label{
+  font-weight: bold;
+} */
+
+.sort-algorithms{
+  background-color: #6c757d;
+  border: none;
+}
+
+.sort-algorithms li{
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
+
+.with-muted-p p{
+  font-size: .9rem;
+  font-style: italic;
+}

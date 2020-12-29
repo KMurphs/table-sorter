@@ -8,6 +8,8 @@
     line-height: 1.8rem;
   }
 }
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
