@@ -18,7 +18,7 @@ export default function Table() {
               {
                 if(idx === 0) { return (
                   <th className="sortable-table__header__item">
-                    <label htmlFor="sortable-table__first-column-control" className="flex items-center">
+                    <label htmlFor="sortable-table__first-column-control" className="flex items-center justify-end">
                       <span>{key}</span>
                       <i className="fas fa-angle-double-left ml-2"></i>
                       <i className="fas fa-angle-double-right"></i>
@@ -26,7 +26,7 @@ export default function Table() {
                   </th>
                 )} else {
                   return (   
-                  <th className="sortable-table__header__item">
+                  <th className={`sortable-table__header__item ${(key as string).toLowerCase().replace(" ","-")}`}>
                     <span>{key}</span>
                   </th>
                 )}
@@ -40,7 +40,7 @@ export default function Table() {
             return (
               <tr>
                 {
-                  keys.map(key => <td><span>{ (entry as any)[key]  || "" }</span></td>)
+                  keys.map(key => <td className={(key as string).toLowerCase().replace(" ","-")}><span>{ (entry as any)[key]  || "" }</span></td>)
                 }
               </tr>
             )

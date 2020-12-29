@@ -4,7 +4,7 @@
   display: grid;
   grid-template: max-content 1fr / 1fr;
 }
-@media (max-width: 991px){
+@media (max-width: 1024px){
   .app-menu{
     margin-top: -100vh;
     /* margin-bottom: 100%; */

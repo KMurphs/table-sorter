@@ -18,6 +18,7 @@
     margin: 20px;
     position: relative;
     border-radius: 3px;
+    flex: 0 0 auto;
 }
 .custom-checkbox__thumb {
     display: block;
@@ -33,15 +34,24 @@
 
     background: #ccc;
 }
-
-
-.custom-checkbox__container input[type=checkbox]:checked ~ p span:nth-child(1) {
+.custom-checkbox__text{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+.custom-checkbox__text > span{
+    line-height: 1.2;
+}
+.custom-checkbox__constantText{
+    margin-right: .5rem;
+}
+.custom-checkbox__container input[type=checkbox]:checked ~ p span.custom-checkbox__offText {
     display: none;
 }
-.custom-checkbox__container input[type=checkbox]:checked ~ p span:nth-child(2) {
+.custom-checkbox__container input[type=checkbox]:checked ~ p span.custom-checkbox__onText {
     display: inline;
 }
-.custom-checkbox__container input[type=checkbox] ~ p span:nth-child(2) {
+.custom-checkbox__container input[type=checkbox] ~ p span.custom-checkbox__onText {
     display: none;
 }
 

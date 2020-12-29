@@ -49,11 +49,15 @@ function Checkbox1({value, onChange, onText, offText, constantText, extraClasses
 
   return (
     <label htmlFor="custom-checkbox" className={`custom-checkbox__container custom-checkbox__container-1 ${extraClasses}`}>
-       <input type="checkbox" id="custom-checkbox" name="custom-checkbox" checked={value} onChange={evt=>onChange(evt.target.checked)} />
-       <div className="custom-checkbox__background">
+      <input type="checkbox" id="custom-checkbox" name="custom-checkbox" checked={value} onChange={evt=>onChange(evt.target.checked)} />
+      <div className="custom-checkbox__background">
         <span className="custom-checkbox__thumb"></span>
-       </div>
-       <p className="custom-checkbox__text">{constantText}<span>{offText}</span> <span>{onText}</span></p>     
+      </div>
+      <p className="custom-checkbox__text">
+        <span className="custom-checkbox__constantText">{constantText}</span>
+        <span className="custom-checkbox__offText">{offText}</span> 
+        <span className="custom-checkbox__onText">{onText}</span>
+      </p>     
     </label>
   )
 }
