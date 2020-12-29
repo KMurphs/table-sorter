@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import './table.css';
 // import data from "./assets/factbook.json"
 type Props = {
@@ -6,18 +7,24 @@ type Props = {
 }
 
 export default function Table({onDragStart, keysToDisable}: Props) {
-  const data: any[] = [
-    {key1: "value1",key2: "value2",key3: "value3"},
-    {key1: "value1",key2: "value2",key3: "value3"},
-    {key1: "value1",key2: "value2",key3: "value3"},
-    {key1: "value1",key2: "value2",key3: "value3"},
-  ];
+
+  const [data, setData] = useState<any[]>([{}])
+  // const data: any[] = [
+  //   {key1: "value1",key2: "value2",key3: "value3"},
+  //   {key1: "value1",key2: "value2",key3: "value3"},
+  //   {key1: "value1",key2: "value2",key3: "value3"},
+  //   {key1: "value1",key2: "value2",key3: "value3"},
+  // ];
   console.log(data, keysToDisable);
 
   const keys = data && data[0] ? Object.keys(data[0]).filter((_,idx)=>idx<=10) : [];
   const keyToID = (key: string) => (key as string).toLowerCase().replace(" ","-");
 
-
+  useEffect(()=>{
+    fetch("factbook.json")
+    .then(res => res.json())
+    .then(res => setData(res))
+  }, [])
 
   return (
     <section className="sortable-table__container">

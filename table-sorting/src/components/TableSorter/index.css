@@ -75,11 +75,21 @@ input[name=sort-algorithm]:checked ~ label{
   padding-bottom: .1rem;
   display: inline-flex;
   align-items: baseline;
+  font-size: .8rem;
 }
 .sort-key:hover{
   background-color: #555 !important;
 }
 .sort-key .fas{
   margin-left: .5rem;
-  font-size: 1rem;
+  font-size: .8rem;
+}
+@media (min-width: 1024px){
+  .sort-key .fas{
+    margin-left: .5rem;
+    font-size: 1rem;
+  }
+  .sort-key{
+    font-size: 1rem;
+  }
 }

@@ -62,8 +62,8 @@ export default function TableSorter() {
       </header>
 
       <main className="overflow-hidden">
-        <section className="px-4 py-6 text-md md:text-lg border-t border-b bg-gray-50" onDragOver={allowDrop} onDrop={handleDrop}>
-          <span>Drag headers here to sort: </span>
+        <section className="px-4 py-2 lg:py-6 text-md md:text-lg border-t border-b bg-gray-50" onDragOver={allowDrop} onDrop={handleDrop}>
+          <span className="text-sm lg:text-md">Drag headers here to sort: </span>
           {
             sortKeys.map((item, idx) => <span onClick={()=>removeFromSortKeys(item.id)} key={idx} id={`${item.id}--cloned`} className="sort-key">{item.key}<i className="fas fa-times"></i></span>)
           }
