@@ -104,4 +104,6 @@
   text-align: right;
 }
 
-
+.sortable-table__container table td.isSorted{
+  background-color: rgba(0,139,0,0.5);
+}

@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Checkbox from '../CustomFormsControls/checkbox';
+import getSorter from '../Sorters';
 import './index.css';
 import Table from './table';
 
 
-type TSortKey = {id: string, key: string, isDirectionUp: boolean}
+export type TSortKey = {id: string, key: string, isDirectionUp: boolean}
 export default function TableSorter() {
 
   const [checkbox, setCheckbox] = useState<boolean>(true);
+
+
+
+
+  // https://codepen.io/lorelea/pen/WRqQyy?editors=0010
+  // http://bernardo-castilho.github.io/DragDropTouch/demo/
+  // https://www.codeproject.com/Articles/1091766/Add-support-for-standard-HTML-Drag-and-Drop-operat
   const [sortKeys, _setSortKeys] = useState<TSortKey[]>([]);
   const addToSortKeys = (newKey: TSortKey)=>{
     _setSortKeys(keys => {
@@ -19,10 +27,11 @@ export default function TableSorter() {
   const changeSortKeyDirection = (keyID: string, isUp: boolean) => _setSortKeys(keys => keys.map(key => { (key.id === keyID) && (key.isDirectionUp = isUp); return key; }))
 
   const handleDragStart = (ev: React.DragEvent<HTMLElement>) => {
+    const inputCheckbox = ev.currentTarget.querySelector("input[type=checkbox]")
     ev.dataTransfer.setData("text", JSON.stringify({
       id: ev.currentTarget.id,
       key: ev.currentTarget.querySelector("span")?.innerText,
-      isDirectionUp: (ev.currentTarget.querySelector("input[type=checkbox]") as HTMLInputElement).checked,
+      isDirectionUp: inputCheckbox ? (inputCheckbox as HTMLInputElement).checked : true,
     }));
   }
   const allowDrop = (ev: React.DragEvent<HTMLElement>)=>{
@@ -63,7 +72,7 @@ export default function TableSorter() {
         </section>
       </header>
 
-      <main className="overflow-hidden">
+      <main className="overflow-hidden flex flex-col">
         <section className="px-4 py-2 lg:py-6 text-md md:text-lg border-t border-b bg-gray-50" onDragOver={allowDrop} onDrop={handleDrop}>
           <span className="text-sm lg:text-md">Drag headers here to sort: </span>
           {
@@ -82,7 +91,7 @@ export default function TableSorter() {
             ))
           }
         </section>
-        <Table onDragStart={handleDragStart} keysToDisable={sortKeys.map(item=>item.id)}/>
+        <Table onDragStart={handleDragStart} keysToSortBy={sortKeys} sorter={getSorter("")}/>
       </main>
     </div>
     

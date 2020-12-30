@@ -1,67 +1,83 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { TSortKey } from '.';
+import { TSorter } from '../Sorters';
 import './table.css';
 // import data from "./assets/factbook.json"
 type Props = {
   onDragStart: (ev: React.DragEvent<HTMLElement>) => void,
-  keysToDisable: string[]
+  keysToSortBy: TSortKey[],
+  sorter: TSorter
 }
 
-export default function Table({onDragStart, keysToDisable}: Props) {
+export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
 
-  // const [data, setData] = useState<any[]>([{}])
-  const [data, setData] = useState<any[]>([
-    {key1: "value1",key2: "value2",key3: "value3"},
-    {key1: "value1",key2: "value2",key3: "value3"},
-    {key1: "value1",key2: "value2",key3: "value3"},
-    {key1: "value1",key2: "value2",key3: "value3"},
-  ]);
-  console.log(data, keysToDisable);
-
-  const keys = data && data[0] ? Object.keys(data[0]).filter((_,idx)=>idx<=10) : [];
+  const [data, setData] = useState<any[]>([{}])
+  // const [data, setData] = useState<any[]>([
+  //   {key1: "value11",key2: "value21",key3: "value34"},
+  //   {key1: "value12",key2: "value22",key3: "value33"},
+  //   {key1: "value13",key2: "value23",key3: "value32"},
+  //   {key1: "value14",key2: "value24",key3: "value31"},
+  // ]);
   const keyToID = (key: string) => (key as string).toLowerCase().replace(" ","-");
+  const extractKeysFromData = (data: any[]) => data && data[0] ? Object.keys(data[0]) : [];
 
-  // useEffect(()=>{
-  //   fetch("factbook.json")
-  //   .then(res => res.json())
-  //   .then(res => setData(res))
-  // }, [])
+
+
+  const keysFromData = useRef<string[]>(extractKeysFromData(data))
+  const keysToSortByAsStrings = keysToSortBy.map(item => item.key)
+
+  sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: keysFromData.current[0],inAscending:true}]);
+
+
+  useEffect(()=>{
+    fetch("factbook.json")
+    .then(res => res.json())
+    .then(res => {
+      keysFromData.current = extractKeysFromData(res);
+      setData(res);
+    })
+  }, [])
 
   return (
     <section className="sortable-table__container">
       <input type="checkbox" id="sortable-table__first-column-control" className="hidden"/>
       <table className="sortable-table">
         <thead>
-          <tr key={0}>
+          <tr>
             {
-              keys.map((key, idx) => 
-                {
-                  if(idx === 0) { return (
-                    <th key={idx} id={keyToID(key)} draggable={!keysToDisable.includes(keyToID(key))} className={`sortable-table__header__item ${keysToDisable.includes(keyToID(key)) ? "disabled": ""}`} onDragStart={onDragStart}>
-                      <label htmlFor="sortable-table__first-column-control" className="flex items-center justify-end">
-                        <span>{key}</span>
-                        <i className="fas fa-angle-double-left ml-2"></i>
-                        <i className="fas fa-angle-double-right"></i>
-                      </label>
-                    </th>
-                  )} else {
-                    return (   
-                    <th key={idx} id={keyToID(key)} draggable={!keysToDisable.includes(keyToID(key))} className={`sortable-table__header__item ${keysToDisable.includes(keyToID(key)) ? "disabled": ""}`} onDragStart={onDragStart}>
+              keysFromData.current.map((key, idx) => {
+                const id = keyToID(key);
+                const isKeyToSortBy = keysToSortByAsStrings.includes(key);
+                if(idx === 0) { return (
+                  <th key={idx} id={id} draggable={!isKeyToSortBy} className={`sortable-table__header__item ${isKeyToSortBy ? "disabled": ""}`} onDragStart={onDragStart}>
+                    <label htmlFor="sortable-table__first-column-control" className="flex items-center justify-end">
                       <span>{key}</span>
-                    </th>
-                  )}
-                }
-              )
+                      <i className="fas fa-angle-double-left ml-2"></i>
+                      <i className="fas fa-angle-double-right"></i>
+                    </label>
+                  </th>
+                )} else {
+                  return (   
+                  <th key={idx} id={id} draggable={!isKeyToSortBy} className={`sortable-table__header__item ${isKeyToSortBy ? "disabled": ""}`} onDragStart={onDragStart}>
+                    <span>{key}</span>
+                  </th>
+                )}
+              })
             }
           </tr>
 
         </thead>
         <tbody>
           {
-            data && data.filter((entry,idx)=>idx<=50).map((entry, idx) => {
+            data && data.map((entry, idx) => {
               return (
                 <tr key={idx + 1}>
                   {
-                    keys.map((key, idx_) => <td key={idx_} className={keyToID(key)}><span>{ (entry as any)[key]  || "" }</span></td>)
+                    keysFromData.current.map((key, idx_) => (
+                      <td key={idx_} className={`${keyToID(key)} ${keysToSortByAsStrings.includes(key) ? "isSorted" : ""}`}>
+                        <span>{ (entry as any)[key]  || "" }</span>
+                      </td>
+                    ))
                   }
                 </tr>
               )
