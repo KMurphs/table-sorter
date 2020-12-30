@@ -35,10 +35,10 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
   console.log("Sort Operation: ", (new Date().getTime() - start));
 
 
-  const isOnProductionHost = ()=> /(localhost|127.0.0.0|0.0.0.0)/.exec(window.location.origin)?.length === 0;
+  const isOnProductionHost = ()=> /(localhost|127.0.0.0|0.0.0.0)/.exec(window.location.origin) === null;
 
   useEffect(()=>{
-    fetch((isOnProductionHost() ? "table-sorter/" : "")+ "factbook.json")
+    fetch((isOnProductionHost() ? "table-sorter/" : "") + "factbook.json")
     .then(res => res.json())
     .then(res => {
       keysFromData.current = extractKeysFromData(res);
