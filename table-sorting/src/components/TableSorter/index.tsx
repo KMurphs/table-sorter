@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Checkbox from '../CustomFormsControls/checkbox';
-import getSorter from '../Sorters';
+import getSorter, { TSorterNames } from '../Sorters';
 import './index.css';
 import Table from './table';
 
@@ -9,6 +9,7 @@ export type TSortKey = {id: string, key: string, isDirectionUp: boolean}
 export default function TableSorter() {
 
   const [checkbox, setCheckbox] = useState<boolean>(true);
+  const [sortAlg, setSortAlg] = useState<TSorterNames>("quick-sort");
 
 
 
@@ -25,6 +26,8 @@ export default function TableSorter() {
   }
   const removeFromSortKeys = (keyID: string) => _setSortKeys(keys => keys.filter(key => key.id !== keyID))
   const changeSortKeyDirection = (keyID: string, isUp: boolean) => _setSortKeys(keys => keys.map(key => { (key.id === keyID) && (key.isDirectionUp = isUp); return key; }))
+  const resetSortKeys = ()=> _setSortKeys([])
+  const handleResetTable = ()=>resetSortKeys()
 
   const handleDragStart = (ev: React.DragEvent<HTMLElement>) => {
     const inputCheckbox = ev.currentTarget.querySelector("input[type=checkbox]")
@@ -59,15 +62,15 @@ export default function TableSorter() {
         <input type="checkbox" id="app-menu-control--hidden" className="hidden"/>
         <section className="app-menu pt-4 lg:pt-0 flex text-lg flex-col lg:flex-row ">
           <div className="flex items-center lg:mr-8 flex-col lg:flex-row">
-            <button className=" py-2 btn btn--link">Reset</button>
-            <span className="p-4 py-2"><Checkbox type={1} value={checkbox} onChange={setCheckbox} constantText={"Direction: "} onText={"Reverse"} offText={"Normal"} extraClasses={"with-muted-p"}/></span>
+            <button className=" py-2 btn btn--link" onClick={handleResetTable}>Reset</button>
+            <span className="p-4 py-2 hidden"><Checkbox type={1} value={checkbox} onChange={setCheckbox} constantText={"Direction: "} onText={"Reverse"} offText={"Normal"} extraClasses={"with-muted-p"}/></span>
           </div>
           <ul className="sort-algorithms flex items-stretch flex-col lg:flex-row rounded overflow-hidden">
-            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="regular-sort" id="regular-sort" /><label className="p-4 py-2 text-center" htmlFor="regular-sort">Regular Sort</label></li>
-            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="bubble-sort" id="bubble-sort" /><label className="p-4 py-2 text-center" htmlFor="bubble-sort">Bubble Sort</label></li>
-            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="merge-sort" id="merge-sort" /><label className="p-4 py-2 text-center" htmlFor="merge-sort">Merge Sort</label></li>
-            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="insertion-sort" id="insertion-sort" /><label className="p-4 py-2 text-center" htmlFor="insertion-sort">Insertion Sort</label></li>
-            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="quartile-sort" id="quartile-sort" /><label className="p-4 py-2 text-center" htmlFor="quartile-sort">Quartile Sort</label></li>
+            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="quick-sort" id="quick-sort" checked={sortAlg === "quick-sort"} onChange={e=>e.target.checked && setSortAlg("quick-sort")} /><label className="p-4 py-2 text-center" htmlFor="quick-sort">Quick Sort</label></li>
+            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="bubble-sort" id="bubble-sort" checked={sortAlg === "bubble-sort"} onChange={e=>e.target.checked && setSortAlg("bubble-sort")} /><label className="p-4 py-2 text-center" htmlFor="bubble-sort">Bubble Sort</label></li>
+            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="merge-sort" id="merge-sort" checked={sortAlg === "merge-sort"} onChange={e=>e.target.checked && setSortAlg("merge-sort")} /><label className="p-4 py-2 text-center" htmlFor="merge-sort">Merge Sort</label></li>
+            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="insertion-sort" id="insertion-sort" checked={sortAlg === "insertion-sort"} onChange={e=>e.target.checked && setSortAlg("insertion-sort")}/><label className="p-4 py-2 text-center" htmlFor="insertion-sort">Insertion Sort</label></li>
+            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="quartile-sort" id="quartile-sort" checked={sortAlg === "quick-sort"} onChange={e=>e.target.checked && setSortAlg("quick-sort")} /><label className="p-4 py-2 text-center" htmlFor="quartile-sort">Quartile Sort</label></li>
           </ul>
         </section>
       </header>
@@ -91,7 +94,7 @@ export default function TableSorter() {
             ))
           }
         </section>
-        <Table onDragStart={handleDragStart} keysToSortBy={sortKeys} sorter={getSorter("")}/>
+        <Table onDragStart={handleDragStart} keysToSortBy={sortKeys} sorter={getSorter(sortAlg)}/>
       </main>
     </div>
     

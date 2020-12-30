@@ -54,7 +54,9 @@ input[name=sort-algorithm]:checked ~ label{
   display: grid;
   grid-template: 1fr / 1fr;
 }
-
+.sort-algorithms label{
+  cursor: pointer;
+}
 
 .with-muted-p p{
   font-size: .9rem;

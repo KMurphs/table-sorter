@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { TSortKey } from '.';
 import { TSorter } from '../Sorters';
@@ -26,8 +27,12 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
   const keysFromData = useRef<string[]>(extractKeysFromData(data))
   const keysToSortByAsStrings = keysToSortBy.map(item => item.key)
 
-  sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: keysFromData.current[0],inAscending:true}]);
 
+  const start = new Date().getTime()
+  // sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: keysFromData.current[0],inAscending:true}]);
+  React.useMemo(() => sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: keysFromData.current[0],inAscending:true}]), [keysToSortBy]);
+  // const sleeping = React.useMemo(() => sleep(sleepSeconds), [sleepSeconds]);
+  console.log("Sort Operation: ", (new Date().getTime() - start));
 
   useEffect(()=>{
     fetch("factbook.json")
