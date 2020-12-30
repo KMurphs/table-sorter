@@ -8,23 +8,23 @@ type Props = {
 
 export default function Table({onDragStart, keysToDisable}: Props) {
 
-  const [data, setData] = useState<any[]>([{}])
-  // const data: any[] = [
-  //   {key1: "value1",key2: "value2",key3: "value3"},
-  //   {key1: "value1",key2: "value2",key3: "value3"},
-  //   {key1: "value1",key2: "value2",key3: "value3"},
-  //   {key1: "value1",key2: "value2",key3: "value3"},
-  // ];
+  // const [data, setData] = useState<any[]>([{}])
+  const [data, setData] = useState<any[]>([
+    {key1: "value1",key2: "value2",key3: "value3"},
+    {key1: "value1",key2: "value2",key3: "value3"},
+    {key1: "value1",key2: "value2",key3: "value3"},
+    {key1: "value1",key2: "value2",key3: "value3"},
+  ]);
   console.log(data, keysToDisable);
 
   const keys = data && data[0] ? Object.keys(data[0]).filter((_,idx)=>idx<=10) : [];
   const keyToID = (key: string) => (key as string).toLowerCase().replace(" ","-");
 
-  useEffect(()=>{
-    fetch("factbook.json")
-    .then(res => res.json())
-    .then(res => setData(res))
-  }, [])
+  // useEffect(()=>{
+  //   fetch("factbook.json")
+  //   .then(res => res.json())
+  //   .then(res => setData(res))
+  // }, [])
 
   return (
     <section className="sortable-table__container">
@@ -36,7 +36,7 @@ export default function Table({onDragStart, keysToDisable}: Props) {
               keys.map((key, idx) => 
                 {
                   if(idx === 0) { return (
-                    <th key={idx} id={keyToID(key)} draggable className={`sortable-table__header__item ${keysToDisable.includes(keyToID(key)) ? "disabled": ""}`} onDragStart={onDragStart}>
+                    <th key={idx} id={keyToID(key)} draggable={!keysToDisable.includes(keyToID(key))} className={`sortable-table__header__item ${keysToDisable.includes(keyToID(key)) ? "disabled": ""}`} onDragStart={onDragStart}>
                       <label htmlFor="sortable-table__first-column-control" className="flex items-center justify-end">
                         <span>{key}</span>
                         <i className="fas fa-angle-double-left ml-2"></i>
@@ -45,7 +45,7 @@ export default function Table({onDragStart, keysToDisable}: Props) {
                     </th>
                   )} else {
                     return (   
-                    <th key={idx} id={keyToID(key)} draggable className={`sortable-table__header__item ${keysToDisable.includes(keyToID(key)) ? "disabled": ""}`} onDragStart={onDragStart}>
+                    <th key={idx} id={keyToID(key)} draggable={!keysToDisable.includes(keyToID(key))} className={`sortable-table__header__item ${keysToDisable.includes(keyToID(key)) ? "disabled": ""}`} onDragStart={onDragStart}>
                       <span>{key}</span>
                     </th>
                   )}

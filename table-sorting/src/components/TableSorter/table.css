@@ -93,6 +93,7 @@
   background-color: #666 !important;
   color: white;
 }
+.sortable-table__container table tr th:not(.disabled){ cursor: grab; }
 .sortable-table__container table tr th:first-child{
   z-index: 11;
   background-color: #555 !important;

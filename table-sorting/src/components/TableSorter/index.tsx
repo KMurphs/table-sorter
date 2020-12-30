@@ -4,7 +4,7 @@ import './index.css';
 import Table from './table';
 
 
-type TSortKey = {id: string, key:string}
+type TSortKey = {id: string, key: string, isDirectionUp: boolean}
 export default function TableSorter() {
 
   const [checkbox, setCheckbox] = useState<boolean>(true);
@@ -16,11 +16,13 @@ export default function TableSorter() {
     })
   }
   const removeFromSortKeys = (keyID: string) => _setSortKeys(keys => keys.filter(key => key.id !== keyID))
+  const changeSortKeyDirection = (keyID: string, isUp: boolean) => _setSortKeys(keys => keys.map(key => { (key.id === keyID) && (key.isDirectionUp = isUp); return key; }))
 
   const handleDragStart = (ev: React.DragEvent<HTMLElement>) => {
     ev.dataTransfer.setData("text", JSON.stringify({
       id: ev.currentTarget.id,
-      key: ev.currentTarget.querySelector("span")?.innerText
+      key: ev.currentTarget.querySelector("span")?.innerText,
+      isDirectionUp: (ev.currentTarget.querySelector("input[type=checkbox]") as HTMLInputElement).checked,
     }));
   }
   const allowDrop = (ev: React.DragEvent<HTMLElement>)=>{
@@ -65,7 +67,19 @@ export default function TableSorter() {
         <section className="px-4 py-2 lg:py-6 text-md md:text-lg border-t border-b bg-gray-50" onDragOver={allowDrop} onDrop={handleDrop}>
           <span className="text-sm lg:text-md">Drag headers here to sort: </span>
           {
-            sortKeys.map((item, idx) => <span onClick={()=>removeFromSortKeys(item.id)} key={idx} id={`${item.id}--cloned`} className="sort-key">{item.key}<i className="fas fa-times"></i></span>)
+            sortKeys.map((item, idx) => (
+              <span onClick={()=>{}} key={idx} id={`${item.id}--cloned`} className="sort-key">
+                <label htmlFor={`${item.id}--cloned-checkbox`}>
+                  {item.key}
+                  <input type="checkbox" id={`${item.id}--cloned-checkbox`} className="hidden" checked={item.isDirectionUp} onChange={e=>{changeSortKeyDirection(item.id, e.target.checked)}}/>
+                  <i className="fas fa-caret-up"></i>
+                  <i className="fas fa-caret-down"></i>
+                </label>
+                <span className="remove" onClick={()=>removeFromSortKeys(item.id)}>
+                  <i className="fas fa-times"></i>
+                </span>
+              </span>
+            ))
           }
         </section>
         <Table onDragStart={handleDragStart} keysToDisable={sortKeys.map(item=>item.id)}/>

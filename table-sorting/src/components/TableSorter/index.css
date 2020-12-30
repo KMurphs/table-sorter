@@ -61,32 +61,81 @@ input[name=sort-algorithm]:checked ~ label{
   font-style: italic;
 }
 
-.sort-key{
-  display: inline-block;
-  background: red;
-  border-radius: 8px;
-  padding: 0rem .5rem;
-  margin: 0 .1rem;
-  cursor: pointer;
+
+
+
+
+
+
+
+
+
+
+.sort-key {
+  margin: 0 1px;
   background-color: #666 !important;
   color: white;
   line-height: 1.5;
   font-size: 1rem;
-  padding-bottom: .1rem;
-  display: inline-flex;
-  align-items: baseline;
   font-size: .8rem;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
 }
-.sort-key:hover{
-  background-color: #555 !important;
+.sort-key label{
+  /* background: red; */
+  padding: .2rem .5rem .2rem .5rem ;
+  cursor: pointer;
+  /* padding-bottom: .1rem; */
+  display: inline-flex;
+  align-items: center;
+
+}
+.sort-key label:hover{
+  background: rgba(0,0,0,0.1);
+  color: white!important;
+}
+.sort-key label::before{
+  width: 1rem;
+  height: 1rem;
+  margin-right: .5rem;
+  /* margin-left: .5rem; */
+  background: radial-gradient(#bbb 1px,transparent 2px);
+  background-size: .33em .33em;
+  content: ' ';
 }
 .sort-key .fas{
   margin-left: .5rem;
   font-size: .8rem;
+  line-height: 1.5;
+  color: #bbb;
 }
+.sort-key label:hover .fas{
+  color: white !important;
+}
+.sort-key .fa-caret-up,
+.sort-key .fa-caret-down{
+  margin-left: 1rem;
+}
+
+.sort-key label input[type=checkbox] ~ .fa-caret-up{ display: none }
+.sort-key label input[type=checkbox] ~ .fa-caret-down{ display: inline }
+.sort-key label input[type=checkbox]:checked ~ .fa-caret-up{ display: inline }
+.sort-key label input[type=checkbox]:checked ~ .fa-caret-down{ display: none }
+
+.sort-key .remove{
+  padding-right: .5rem;
+}
+.sort-key .remove:hover{
+  background-color: rgba(0,0,0,0.1);
+}
+.sort-key .remove:hover .fas{
+  color: white !important;
+}
+
+
 @media (min-width: 1024px){
   .sort-key .fas{
-    margin-left: .5rem;
     font-size: 1rem;
   }
   .sort-key{
