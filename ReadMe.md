@@ -2,15 +2,15 @@
 
 ## Definition
 
-This app is an exercise involving different sorting algorithms on a table ui components written in React, Typescript and TailwindCSS.
+This app is an exercise involving different sorting algorithms on a table ui components written in **React**, **Typescript** and **TailwindCSS**.
 
 ## Context
 
-The application is meant as a study case for React, Visual side effects such as those necessary to visualize the effects of main sorting algorithms.
+The application is meant as a study case for **React**, Visual side effects such as those necessary to **visualize the effects of main sorting algorithms**.
 
-It also considered issues linked to rendering huge tables in React that need to be sorted. The drag and drop API was also something of interest.
+It also considered issues linked to rendering huge tables in React that need to be sorted. The **drag and drop API** was also something of interest.
 
-Finally, the application considers all of the above in teh responsive aspect.
+Finally, the application considers all of the above in the **responsive** aspect.
 
 The application is served as a Github Page at [https://kmurphs.github.io/table-sorter/](https://kmurphs.github.io/table-sorter/)
 
@@ -18,7 +18,7 @@ The application is served as a Github Page at [https://kmurphs.github.io/table-s
 
 ### Welcome Page
 
-The first page demonstrate and sow vizualizations of the inner workings of main sorting algorithms such as:
+The first page demonstrate and show **vizualizations** of the inner workings of main sorting algorithms such as:
 - Quick Sort
 - Merge Sort
 - Insertion Sort
