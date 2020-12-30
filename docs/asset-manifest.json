@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.187d911e.chunk.css",
-    "main.js": "/static/js/main.ebdac905.chunk.js",
-    "main.js.map": "/static/js/main.ebdac905.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.a6ab8fce.js",
-    "runtime-main.js.map": "/static/js/runtime-main.a6ab8fce.js.map",
-    "static/js/2.76212ca3.chunk.js": "/static/js/2.76212ca3.chunk.js",
-    "static/js/2.76212ca3.chunk.js.map": "/static/js/2.76212ca3.chunk.js.map",
-    "static/js/3.8e386a8d.chunk.js": "/static/js/3.8e386a8d.chunk.js",
-    "static/js/3.8e386a8d.chunk.js.map": "/static/js/3.8e386a8d.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.187d911e.chunk.css.map": "/static/css/main.187d911e.chunk.css.map",
-    "static/js/2.76212ca3.chunk.js.LICENSE.txt": "/static/js/2.76212ca3.chunk.js.LICENSE.txt",
-    "static/media/bg.cd4da263.svg": "/static/media/bg.cd4da263.svg",
-    "static/media/index.css": "/static/media/fa-solid-900.ce9aef17.svg"
+    "main.css": "/table-sorter/static/css/main.fa2fcd33.chunk.css",
+    "main.js": "/table-sorter/static/js/main.ebdac905.chunk.js",
+    "main.js.map": "/table-sorter/static/js/main.ebdac905.chunk.js.map",
+    "runtime-main.js": "/table-sorter/static/js/runtime-main.c3c3c482.js",
+    "runtime-main.js.map": "/table-sorter/static/js/runtime-main.c3c3c482.js.map",
+    "static/js/2.76212ca3.chunk.js": "/table-sorter/static/js/2.76212ca3.chunk.js",
+    "static/js/2.76212ca3.chunk.js.map": "/table-sorter/static/js/2.76212ca3.chunk.js.map",
+    "static/js/3.8e386a8d.chunk.js": "/table-sorter/static/js/3.8e386a8d.chunk.js",
+    "static/js/3.8e386a8d.chunk.js.map": "/table-sorter/static/js/3.8e386a8d.chunk.js.map",
+    "index.html": "/table-sorter/index.html",
+    "static/css/main.fa2fcd33.chunk.css.map": "/table-sorter/static/css/main.fa2fcd33.chunk.css.map",
+    "static/js/2.76212ca3.chunk.js.LICENSE.txt": "/table-sorter/static/js/2.76212ca3.chunk.js.LICENSE.txt",
+    "static/media/bg.cd4da263.svg": "/table-sorter/static/media/bg.cd4da263.svg",
+    "static/media/index.css": "/table-sorter/static/media/fa-solid-900.ce9aef17.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.a6ab8fce.js",
+    "static/js/runtime-main.c3c3c482.js",
     "static/js/2.76212ca3.chunk.js",
-    "static/css/main.187d911e.chunk.css",
+    "static/css/main.fa2fcd33.chunk.css",
     "static/js/main.ebdac905.chunk.js"
   ]
 }
