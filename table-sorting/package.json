@@ -26,6 +26,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "release": "npm run build && ..\\scripts\\build.bat",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

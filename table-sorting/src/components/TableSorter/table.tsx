@@ -34,8 +34,11 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
   // const sleeping = React.useMemo(() => sleep(sleepSeconds), [sleepSeconds]);
   console.log("Sort Operation: ", (new Date().getTime() - start));
 
+
+  const isOnProductionHost = ()=> /(localhost|127.0.0.0|0.0.0.0)/.exec(window.location.origin)?.length === 0;
+
   useEffect(()=>{
-    fetch("factbook.json")
+    fetch((isOnProductionHost() ? "table-sorter/" : "")+ "factbook.json")
     .then(res => res.json())
     .then(res => {
       keysFromData.current = extractKeysFromData(res);
