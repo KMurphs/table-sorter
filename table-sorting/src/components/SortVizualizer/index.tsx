@@ -58,7 +58,7 @@ export default function SortVizualizer({nBars}: Props) {
           bars.current.map(curr=>curr.value), 
           0, 
           bars.current.length - 1, 
-          [{key: "value", inAscending: false}],
+          [{key: "value", inAscending: true}],
           (initial, final, level1, level2, isSwapEffect)=>barEffects.current.push({
             f: ()=>{ 
               if(isSwapEffect) swap(bars.current, initial, final); 
