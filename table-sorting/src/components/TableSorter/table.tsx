@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { TSortKey } from '.';
 import { TSorter } from '../Sorters';
+import takeBatchFromIterator, { useEffectWhenInView } from './iterators';
 import './table.css';
 // import data from "./assets/factbook.json"
 type Props = {
@@ -10,15 +11,23 @@ type Props = {
   sorter: TSorter
 }
 
+interface T {
+  next: Function
+}
 export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
 
-  const [data, setData] = useState<any[]>([{}])
-  // const [data, setData] = useState<any[]>([
-  //   {key1: "value11",key2: "value21",key3: "value34"},
-  //   {key1: "value12",key2: "value22",key3: "value33"},
-  //   {key1: "value13",key2: "value23",key3: "value32"},
-  //   {key1: "value14",key2: "value24",key3: "value31"},
-  // ]);
+  const [data, setData] = useState<any[]>([]);
+  const dataBatch = useRef(takeBatchFromIterator(15, []));
+  const loadMoreDataFrom = (it: T) => setData(data =>{ 
+    const nextBatch = it.next();
+    console.log(nextBatch);
+    return nextBatch.length === 0 ? data : [...data, ...nextBatch];
+  });
+  // const loadMoreData = loadMoreDataFrom.bind(null, dataBatch.current);
+
+  console.log(data);
+
+
   const keyToID = (key: string) => (key as string).toLowerCase().replace(" ","-");
   const extractKeysFromData = (data: any[]) => data && data[0] ? Object.keys(data[0]) : [];
 
@@ -35,21 +44,32 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
   console.log("Sort Operation: ", (new Date().getTime() - start));
 
 
-  const isOnProductionHost = ()=> /(localhost|127.0.0.0|0.0.0.0)/.exec(window.location.origin) === null;
-
+  const isOnProductionHost = () => /(localhost|127.0.0.1|127.0.0.0|0.0.0.0)/.exec(window.location.origin) === null;
   useEffect(()=>{
-    fetch((isOnProductionHost() ? "table-sorter/" : "") + "factbook.json")
+    fetch((isOnProductionHost() ? "table-sorter/" : "") +  "factbook.json")
     .then(res => res.json())
     .then(res => {
       keysFromData.current = extractKeysFromData(res);
-      setData(res);
+      dataBatch.current = takeBatchFromIterator(20, res);
+      loadMoreDataFrom(dataBatch.current);
     })
   }, [])
 
+  const tableRef = useRef<HTMLElement | null>(null);
+  useEffect(()=>{
+    // TODO: This is not an ideal solution since it involves scralling the table back up
+    // A better alternative would be to load all batches of data above current offset
+    dataBatch.current.reset();
+    tableRef.current && (tableRef.current.scrollTop = 0);
+  }, [keysToSortBy])
+
+  const tableFooterRef = useRef<HTMLTableSectionElement|null>(null);
+  useEffectWhenInView(".tableFooter td span", ()=>{ console.log("Loading More..."); loadMoreDataFrom(dataBatch.current)});
+
   return (
-    <section className="sortable-table__container">
+    <section className="sortable-table__container" ref={tableRef}>
       <input type="checkbox" id="sortable-table__first-column-control" className="hidden"/>
-      <table className="sortable-table">
+      <table className="sortable-table" >
         <thead>
           <tr>
             {
@@ -82,6 +102,7 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
                 <tr key={idx + 1}>
                   {
                     keysFromData.current.map((key, idx_) => (
+                      // React.useMemo()
                       <td key={idx_} className={`${keyToID(key)} ${keysToSortByAsStrings.includes(key) ? "isSorted" : ""}`}>
                         <span>{ (entry as any)[key]  || "" }</span>
                       </td>
@@ -92,6 +113,9 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
             })
           }
         </tbody>
+        <tfoot ref={tableFooterRef} className="tableFooter">
+          <tr><td colSpan={keysFromData.current.length}><span>Loading More Data...</span></td></tr>
+        </tfoot>
       </table>
     </section>
 

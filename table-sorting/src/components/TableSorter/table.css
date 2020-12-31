@@ -107,3 +107,20 @@
 .sortable-table__container table td.isSorted{
   background-color: rgba(0,139,0,0.5);
 }
+
+
+
+.tableFooter{
+  /* height: 100px; */
+  background-color: red;
+  /* display: table-row; */
+  /* width: 100%; */
+}
+.tableFooter td{
+  text-align: left !important;
+}
+.tableFooter td span{
+  position: sticky;
+  left: 50vw;
+  transform: translateX(-50%);
+}
