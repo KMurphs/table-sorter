@@ -33,11 +33,30 @@ The table data is served by a file in this repo ``"<Current Repo>/table-sorting/
 
 To sort the table, drag one of the headers in the indicated zone. Once drop in that zone, the table will be resorted. The drop control can be used to change the sorting direction (from ascending to descending per column).
 
-## Known Issues
+
+## Notable Issues
 
 - Drag And Drop solution for mobile Web browser has not been integrated. Initial inclination is to use a polyfill for touch event.
 
-- Table is slow on sorting. Multiple possible solutions have been identified to palliate to this issue like using ``React.useMemo`` and ``React.useCallback``
+
+- Initially, the Table was slow on sorting. Multiple possible solutions were identified to palliate to this issue.
+  
+  - Using ``React.useMemo`` and ``React.useCallback``:
+    - Initially, the **sort** operation was assumed to be the culprit. But it happened, that sorting a table with the current dimensions is not the bottleneck. ``React.useMemo`` and ``React.useCallback`` are meant to mitigate the expensive time taken to perform some computation, using them with **sort** will not address the main issue.
+
+    - On every render (which usually means that the table was re-sorted), each cell is re-rendered then each row. The cells that correspond to the keys used during the sort get colored. This prevents an efficient memoization of table components (table cells, rows) since most of them must be updated and re-rendered.<br> A possible approach could be to use a table where ``'<tr></tr>'`` is redefined to mean a column instead of its semantic 'horizontal' meaning. This [stackoverflow thread](https://stackoverflow.com/questions/16071864/how-to-create-tables-from-column-data-instead-of-row-data-in-html) discusses the subject.
+
+  - Another solution would be to implement a similar logic to lazy loading of images.<br>
+  As a refresher, to implement this strategy, a few things must be in place:
+    - A Generator that will spit out batch of data.
+    - An Intersection Observer, that triggers some function when some element is in view. This function can then fetch the next batch of data and cause a re-render to put the new data on the DOM.<br>
+    
+    In our case, since re-render the data that's already on the DOM is consumming, we need to prevent them from re-rendering.<br>
+    This approach is implemented. 
+
+
+
+
 
 ## References
 
@@ -50,7 +69,7 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
 7. [https://www.codeproject.com/Articles/1091766/Add-support-for-standard-HTML-Drag-and-Drop-operat](https://www.codeproject.com/Articles/1091766/Add-support-for-standard-HTML-Drag-and-Drop-operat)
 8. [https://stackoverflow.com/questions/45049873/how-to-remove-the-blue-background-of-button-on-mobile](https://stackoverflow.com/questions/45049873/how-to-remove-the-blue-background-of-button-on-mobile)
 9. [https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b](https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b)
-10. [https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b](https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b)
+10. [https://www.smashingmagazine.com/2020/03/infinite-scroll-lazy-image-loading-react/](https://www.smashingmagazine.com/2020/03/infinite-scroll-lazy-image-loading-react/)
 11. [https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b/1312678#1312678](https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b/1312678#1312678)
 12. [https://stackoverflow.com/questions/16071864/how-to-create-tables-from-column-data-instead-of-row-data-in-html](https://stackoverflow.com/questions/16071864/how-to-create-tables-from-column-data-instead-of-row-data-in-html)
 13. [https://stackoverflow.com/questions/20927759/html5-drag-and-drop-for-mobile](https://stackoverflow.com/questions/20927759/html5-drag-and-drop-for-mobile)
