@@ -1,8 +1,10 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { TSortKey } from '.';
+import { useEffectWhenInView } from '../../custom-hooks/useEffectWhenInView';
+import { CSSLoaderDualRing } from '../CSSLoaders';
 import { TSorter } from '../Sorters';
-import takeBatchFromIterator, { useEffectWhenInView } from './iterators';
+import takeBatchFromIterator from './iterators';
 import './table.css';
 // import data from "./assets/factbook.json"
 type Props = {
@@ -20,28 +22,20 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
   const dataBatch = useRef(takeBatchFromIterator(15, []));
   const loadMoreDataFrom = (it: T) => setData(data =>{ 
     const nextBatch = it.next();
-    console.log(nextBatch);
     return nextBatch.length === 0 ? data : [...data, ...nextBatch];
   });
-  // const loadMoreData = loadMoreDataFrom.bind(null, dataBatch.current);
 
-  console.log(data);
 
 
   const keyToID = (key: string) => (key as string).toLowerCase().replace(" ","-");
   const extractKeysFromData = (data: any[]) => data && data[0] ? Object.keys(data[0]) : [];
-
-
-
   const keysFromData = useRef<string[]>(extractKeysFromData(data))
   const keysToSortByAsStrings = keysToSortBy.map(item => item.key)
 
 
-  const start = new Date().getTime()
-  // sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: keysFromData.current[0],inAscending:true}]);
-  React.useMemo(() => sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: keysFromData.current[0],inAscending:true}]), [keysToSortBy]);
-  // const sleeping = React.useMemo(() => sleep(sleepSeconds), [sleepSeconds]);
-  console.log("Sort Operation: ", (new Date().getTime() - start));
+
+
+
 
 
   const isOnProductionHost = () => /(localhost|127.0.0.1|127.0.0.0|0.0.0.0)/.exec(window.location.origin) === null;
@@ -63,8 +57,25 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
     tableRef.current && (tableRef.current.scrollTop = 0);
   }, [keysToSortBy])
 
-  const tableFooterRef = useRef<HTMLTableSectionElement|null>(null);
-  useEffectWhenInView(".tableFooter td span", ()=>{ console.log("Loading More..."); loadMoreDataFrom(dataBatch.current)});
+  useEffectWhenInView("tfoot td span", ()=>{ 
+    console.log("Loading More..."); 
+    loadMoreDataFrom(dataBatch.current);
+  });
+
+
+
+
+
+
+
+
+
+  const start = new Date().getTime()
+  const sortedData = React.useMemo(
+    () => [...sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: "Country Name",inAscending: true}])], 
+    [keysToSortBy, data]
+  );
+  console.log("Sort Operation: ", (new Date().getTime() - start));
 
   return (
     <section className="sortable-table__container" ref={tableRef}>
@@ -97,12 +108,11 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
         </thead>
         <tbody>
           {
-            data && data.map((entry, idx) => {
+            sortedData && sortedData.map((entry, idx) => {
               return (
                 <tr key={idx + 1}>
                   {
                     keysFromData.current.map((key, idx_) => (
-                      // React.useMemo()
                       <td key={idx_} className={`${keyToID(key)} ${keysToSortByAsStrings.includes(key) ? "isSorted" : ""}`}>
                         <span>{ (entry as any)[key]  || "" }</span>
                       </td>
@@ -113,8 +123,17 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
             })
           }
         </tbody>
-        <tfoot ref={tableFooterRef} className="tableFooter">
-          <tr><td colSpan={keysFromData.current.length}><span>Loading More Data...</span></td></tr>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td colSpan={keysFromData.current.length}>
+              {
+                dataBatch.current.isDone() 
+                  ? <span></span> 
+                  : <span><CSSLoaderDualRing/> Loading More Data...</span>
+              }
+            </td>
+          </tr>
         </tfoot>
       </table>
     </section>

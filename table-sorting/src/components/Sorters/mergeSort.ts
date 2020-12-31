@@ -7,17 +7,16 @@ const sort: TSorter = (arr, start, end, params=[{key: "value", inAscending: true
 
   const low = start || 0;
   const high = end === undefined || end === null ? arr.length - 1 : end;
-  if((low === 0) && (end === arr.length - 1))console.log(arr)
 
-  if(low >= high) return;
+  if(low >= high) return arr;
   const middle = Math.round((low + high) / 2);
 
   sort(arr, low, middle - 1, params, onMoveCb);
   sort(arr, middle, high, params, onMoveCb);
   merge(arr, low, middle, high, params, onMoveCb);
 
-  if((low === 0) && (end === arr.length - 1))console.log(arr)
 
+  return arr;
 }
 
 

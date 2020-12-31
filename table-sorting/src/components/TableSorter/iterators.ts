@@ -34,37 +34,21 @@ const takeBatchFromIterator = (batchSize: number = 50, data: any[]) => {
 
   const init = (size: number)=>takeNFromIterator(size, arrayIterator(data))
   let it = init(batchSize);
+  let isDone = false;
 
   return {
     reset: (batch?: number) => {
       it = init(batch || batchSize)
     },
     next: () => {
-      const { value } = it.next();
+      const { value, done } = it.next();
+      isDone = done || false;
       return [...(Array.isArray(value) ? value : [])]
-    }
+    },
+    isDone: () => isDone
   }
   
 }
 export default takeBatchFromIterator
 
 
-
-export const useEffectWhenInView = (cssSelector: string, cb: Function)=>{
-
-  useEffect(()=>{
-
-    const el = document.querySelector(cssSelector);
-    // const el = document.querySelector(".tableFooter");
-    const intObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => cb && (entry.intersectionRatio > 0) && cb(entry))
-    }, {threshold: [.9]})
-
-    console.log({el, intObserver})
-    el && intObserver.observe(el)
-
-    return el ? () => intObserver.unobserve(el) : ()=>{};
-
-  }, [cssSelector, cb])
-
-}

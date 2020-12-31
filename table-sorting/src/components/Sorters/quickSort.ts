@@ -6,11 +6,13 @@ const sort: TSorter = (arr, start, end, params = [{key: "value", inAscending: tr
   const low = start || 0;
   const high = end === undefined || end === null ? arr.length - 1 : end;
 
-  if(low >= high) return;
+  if(low >= high) return arr;
 
   const pivot = partition(arr, low, high, params, onMoveCb);
   sort(arr, low, pivot - 1, params, onMoveCb);
   sort(arr, pivot + 1, high, params, onMoveCb);
+
+  return arr;
 }
 
 

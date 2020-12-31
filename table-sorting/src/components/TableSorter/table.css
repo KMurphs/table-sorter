@@ -108,19 +108,24 @@
   background-color: rgba(0,139,0,0.5);
 }
 
-
-
-.tableFooter{
-  /* height: 100px; */
-  background-color: red;
-  /* display: table-row; */
-  /* width: 100%; */
-}
-.tableFooter td{
+tfoot td{
   text-align: left !important;
 }
-.tableFooter td span{
+
+tfoot td span{
   position: sticky;
-  left: 50vw;
-  transform: translateX(-50%);
+  left: 40vw;
+  left: calc(50vw - 80px);
+  /* transform: translateX(-50%); */
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+}
+.css-loader{
+  transform: scale(.8);
+}
+@media (min-width: 768px){
+  .css-loader{
+    transform: scale(1);
+  }
 }

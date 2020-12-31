@@ -15,6 +15,7 @@ const sort: TSorter = (arr, start, end, params=[{key: "value", inAscending: true
     heapify(arr, runner, 0, params, onMoveCb);
   }
 
+  return arr;
 }
 
 

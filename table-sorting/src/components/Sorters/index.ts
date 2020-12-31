@@ -14,7 +14,7 @@ export interface T {
   value: number
 }
 export type TSortEffectCallback = (startPosition: number, endPosition: number, emphasis1?: number[], emphasis2?: number[], isSwapEffect?: boolean)=>void
-export type TSorter = (arr: T[] | number[] | any[], start: number | null, end: number | null, params: TSortParam[], onMoveCb?: TSortEffectCallback)=>void
+export type TSorter = (arr: T[] | number[] | any[], start: number | null, end: number | null, params: TSortParam[], onMoveCb?: TSortEffectCallback)=>T[] | number[] | any[]
 export type TSorterNames = "quick-sort" | "bubble-sort" | "heap-sort" | "merge-sort" | "selection-sort" | "insertion-sort"
 export type TComparator = (a: any, b: any, param: TSortParam[]) => boolean
 export type TSortParam = {key: string, inAscending: boolean}
@@ -32,7 +32,7 @@ const sortComparator: TComparator = (a: any, b: any, params: TSortParam[] = [{ke
   const aVal = getValue(a, param.key);
   const bVal = getValue(b, param.key);
   if(aVal === bVal) return rest.length === 0 ? true : sortComparator(a, b, rest);
-  return ((aVal - bVal)*(param.inAscending ? 1 : -1)) > 0;
+  return (aVal > bVal) === param.inAscending; //Must work with number and strings
 }
 
 /**
