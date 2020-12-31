@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Checkbox from '../CustomFormsControls/checkbox';
 import getSorter, { TSorterNames } from '../Sorters';
 import './index.css';
@@ -25,7 +25,7 @@ export default function TableSorter() {
     })
   }
   const removeFromSortKeys = (keyID: string) => _setSortKeys(keys => keys.filter(key => key.id !== keyID))
-  const changeSortKeyDirection = (keyID: string, isUp: boolean) => _setSortKeys(keys => keys.map(key => { (key.id === keyID) && (key.isDirectionUp = isUp); return key; }))
+  const changeSortKeyDirection = (keyID: string, isUp: boolean) => _setSortKeys(keys => keys.map(key => { (key.id === keyID) && (key.isDirectionUp = isUp); return {...key}; }))
   const resetSortKeys = ()=> _setSortKeys([])
   const handleResetTable = ()=>resetSortKeys()
 

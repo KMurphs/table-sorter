@@ -73,7 +73,7 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
   const start = new Date().getTime()
   const sortedData = React.useMemo(
     () => [...sorter(data, 0, data.length - 1, (keysToSortBy && keysToSortBy[0]) ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) : [{key: "Country Name",inAscending: true}])], 
-    [keysToSortBy, data]
+    [keysToSortBy, data, sorter]
   );
   console.log("Sort Operation: ", (new Date().getTime() - start));
 
