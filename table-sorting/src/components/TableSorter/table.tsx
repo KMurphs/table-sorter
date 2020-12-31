@@ -54,6 +54,7 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
     // TODO: This is not an ideal solution since it involves scralling the table back up
     // A better alternative would be to load all batches of data above current offset
     dataBatch.current.reset();
+    setData([]);
     tableRef.current && (tableRef.current.scrollTop = 0);
   }, [keysToSortBy])
 
