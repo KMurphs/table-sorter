@@ -3,6 +3,7 @@ import { TSortKey } from '.';
 import { useEffectWhenInView } from '../../custom-hooks/useEffectWhenInView';
 import { CSSLoaderDualRing } from '../CSSLoaders';
 import { TSorter } from '../Sorters';
+import takeBatchFromIterator from './iterators';
 import './table.css';
 
 
@@ -28,13 +29,13 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
     fetch("table-sorter/factbook.json")
     .then(res => res.json())
     .then(res => {
-      batchIndex.current = -1;
       sorter(
         res, 0, res.length - 1, 
         (keysToSortBy && keysToSortBy[0]) 
           ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) 
           : [{key: "Country Name", inAscending: true}]
       )
+      batchIterator.current = takeBatchFromIterator(batchSize, res);
       setSrcData(res);
     })
   }, [1])
@@ -45,16 +46,13 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
   const [uiData, setUiData] = useState<any[]>([]);
   const [hasNoMoreData, setHasNoMoreData] = useState(false);
   const batchSize = 20;
-  const batchIndex = useRef(0);
+  const batchIterator = useRef(takeBatchFromIterator(batchSize, srcData));
   const loadMore = ()=>{
-    batchIndex.current += 1;
-    const nextBatch = srcData.filter((item, idx) => ((batchIndex.current * batchSize) <= idx) && (idx < ((batchIndex.current + 1) * batchSize)));
-    setHasNoMoreData((batchIndex.current * batchSize) >= srcData.length);
+    const nextBatch = batchIterator.current.next();
+    setHasNoMoreData(batchIterator.current.isDone());
     (nextBatch.length !== 0) && setUiData(data => [...data, ...nextBatch]);
   }
-  useEffectWhenInView("tfoot td span", ()=>{ 
-    loadMore();
-  });
+  useEffectWhenInView("tfoot td span", ()=>loadMore());
 
 
 
@@ -69,7 +67,7 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
         ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) 
         : [{key: "Country Name", inAscending: true}]
     )
-    batchIndex.current = -1;
+    batchIterator.current = takeBatchFromIterator(batchSize, srcData);
     setUiData([]);
     tableRef.current && (tableRef.current.scrollTop = 0);
   }, [keysToSortBy, sorter, srcData])
