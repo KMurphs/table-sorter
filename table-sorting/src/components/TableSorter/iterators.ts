@@ -6,7 +6,8 @@ export function* arrayIterator(data: any[]) {
   let iterationCount = 0;
   for(let item of data) {
     iterationCount++; 
-    yield item
+    console.log("Pushing ", iterationCount)
+    yield typeof(item) === "object" ? {...item} : item
   }
   return iterationCount;
 }
@@ -23,6 +24,7 @@ export function *takeNFromIterator(batchSize: number = 50, iterator: Generator<a
       isDone = done || false;
       !isDone && arr.push(value);
     }
+    console.log("Pushing Arr", arr)
     yield arr;
   }
 
@@ -42,6 +44,7 @@ const takeBatchFromIterator = (batchSize: number = 50, data: any[]) => {
     },
     next: () => {
       const { value, done } = it.next();
+      console.log("Pushing Next")
       isDone = done || false;
       return [...(Array.isArray(value) ? value : [])]
     },
