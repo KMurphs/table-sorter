@@ -70,7 +70,7 @@ export default function TableSorter() {
             <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="bubble-sort" id="bubble-sort" checked={sortAlg === "bubble-sort"} onChange={e=>e.target.checked && setSortAlg("bubble-sort")} /><label className="p-4 py-2 text-center" htmlFor="bubble-sort">Bubble Sort</label></li>
             <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="merge-sort" id="merge-sort" checked={sortAlg === "merge-sort"} onChange={e=>e.target.checked && setSortAlg("merge-sort")} /><label className="p-4 py-2 text-center" htmlFor="merge-sort">Merge Sort</label></li>
             <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="insertion-sort" id="insertion-sort" checked={sortAlg === "insertion-sort"} onChange={e=>e.target.checked && setSortAlg("insertion-sort")}/><label className="p-4 py-2 text-center" htmlFor="insertion-sort">Insertion Sort</label></li>
-            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="quartile-sort" id="quartile-sort" checked={sortAlg === "quick-sort"} onChange={e=>e.target.checked && setSortAlg("quick-sort")} /><label className="p-4 py-2 text-center" htmlFor="quartile-sort">Quartile Sort</label></li>
+            <li><input className="hidden sort-algorithm" type="radio" name="sort-algorithm" value="quartile-sort" id="quartile-sort" checked={sortAlg === "quartile-sort"} onChange={e=>e.target.checked && setSortAlg("quartile-sort")} /><label className="p-4 py-2 text-center" htmlFor="quartile-sort">Quartile Sort</label></li>
           </ul>
         </section>
       </header>

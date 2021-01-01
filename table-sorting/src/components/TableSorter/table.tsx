@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TSortKey } from '.';
 import { useEffectWhenInView } from '../../custom-hooks/useEffectWhenInView';
 import { CSSLoaderDualRing } from '../CSSLoaders';
@@ -57,17 +57,18 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
 
 
 
-  const keysFromData = extractKeysFromData(srcData)
-  const keysFromProps = keysToSortBy.map(item => item.key)
+  const keysFromData = useMemo(()=>extractKeysFromData(srcData), [srcData])
+  const keysFromProps = useMemo(()=>keysToSortBy.map(item => item.key), [keysToSortBy])
   const tableRef = useRef<HTMLElement | null>(null);
   useEffect(()=>{
+    const srcCopy = srcData.map(item => ({...item}))
     sorter(
-      srcData, 0, srcData.length - 1, 
+      srcCopy, 0, srcCopy.length - 1, 
       (keysToSortBy && keysToSortBy[0]) 
         ? keysToSortBy.map(item => ({key: item.key, inAscending: item.isDirectionUp})) 
         : [{key: "Country Name", inAscending: true}]
     )
-    batchIterator.current = takeBatchFromIterator(batchSize, srcData);
+    batchIterator.current = takeBatchFromIterator(batchSize, srcCopy);
     setUiData([]);
     tableRef.current && (tableRef.current.scrollTop = 0);
   }, [keysToSortBy, sorter, srcData])
@@ -113,11 +114,14 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
               return (
                 <tr key={idx + 1}>
                   {
-                    keysFromData.map((key, idx_) => (
-                      <td key={idx_} className={`${keyToID(key)} ${keysFromProps.includes(key) ? "isSorted" : ""}`}>
-                        <span>{ (entry as any)[key]  || "" }</span>
-                      </td>
-                    ))
+                    keysFromData.map((key, idx_) => {
+                      const quartileMark = entry.quartileMark ? entry.quartileMark[key] : "";
+                      return (
+                        <td key={idx_} className={`${keyToID(key)} ${quartileMark} ${keysFromProps.includes(key) ? "isSorted" : ""}`}>
+                          <span>{ (entry as any)[key]  || "" }</span>
+                        </td>
+                      )}
+                    )
                   }
                 </tr>
               )
