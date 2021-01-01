@@ -5,6 +5,7 @@ import bubbleSort from "./bubbleSort";
 import mergeSort from "./mergeSort";
 import selectionSort from "./selectionSort";
 import insertionSort from "./insertionSort";
+import quartileSort from "./quartileSort";
 
 // import quickSort, {  swap } from "./qSort";
 // import { default as quickSort } from "./quickSort";
@@ -15,7 +16,7 @@ export interface T {
 }
 export type TSortEffectCallback = (startPosition: number, endPosition: number, emphasis1?: number[], emphasis2?: number[], isSwapEffect?: boolean)=>void
 export type TSorter = (arr: T[] | number[] | any[], start: number | null, end: number | null, params: TSortParam[], onMoveCb?: TSortEffectCallback)=>T[] | number[] | any[]
-export type TSorterNames = "quick-sort" | "bubble-sort" | "heap-sort" | "merge-sort" | "selection-sort" | "insertion-sort"
+export type TSorterNames = "quick-sort" | "bubble-sort" | "heap-sort" | "merge-sort" | "selection-sort" | "insertion-sort" | "quartile-sort"
 export type TComparator = (a: any, b: any, param: TSortParam[]) => boolean
 export type TSortParam = {key: string, inAscending: boolean}
 
@@ -47,6 +48,7 @@ const getSorter = function(algorithmName: string){
   if(algorithmName === "merge-sort") return mergeSort;
   if(algorithmName === "selection-sort") return selectionSort;
   if(algorithmName === "insertion-sort") return insertionSort;
+  if(algorithmName === "quartile-sort") return quartileSort;
   return quickSort;
 }
 export default getSorter;

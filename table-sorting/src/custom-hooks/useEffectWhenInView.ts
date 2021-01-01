@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 /**
  * Generalization of the "lazy loading" functionality. 
@@ -7,7 +7,7 @@ import { useEffect } from "react";
  * when a html target element (identified by the "cssSelector" argument)
  * enters in view.
  * 
- * When that happens the callback is fired.
+ * When that happens the callback (effect) is fired.
  * 
  * 
  * @param  {string} cssSelector
@@ -15,7 +15,7 @@ import { useEffect } from "react";
  */
 export const useEffectWhenInView = (cssSelector: string, callback: Function)=>{
 
-  useEffect(()=>{
+  useLayoutEffect(()=>{
 
     const el = document.querySelector(cssSelector);
     const intObserver = new IntersectionObserver(entries => {

@@ -21,7 +21,7 @@ COPY ..\docs\index.html ..\docs\index.md
 @REM Push to origin
 CD ..
 git add *
-git commit -m "Released current build to Github page"
+git commit -m "Released current automated build to Github page"
 git push 
 
 @REM Return to original directory
