@@ -12,7 +12,8 @@ import {
 import TableSorter from './components/TableSorter';
 import Welcome from './components/Welcome';
 import { useCustomCss_vh } from './custom-hooks/useCustomCss_vh';
-import { useAppURI } from './custom-hooks/useAppURI';
+import { useAppURI, useResetToBaseURIOnLoad } from './custom-hooks/scrollHelpers';
+import { isOnProductionHost } from './custom-hooks/generalHelpers';
 
 
 
@@ -21,6 +22,7 @@ function App() {
   // const [isAtWelcomeScreen, setIsAtWelcomeScreen] = useState<boolean>(true);
   
   useCustomCss_vh();
+  useResetToBaseURIOnLoad("table-sorter", ()=>!isOnProductionHost());
   const uri = useAppURI("table-sorter");
   console.log(uri, `${uri}/data`)
 
