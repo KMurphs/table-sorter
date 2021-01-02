@@ -1,4 +1,4 @@
-import { swap, T, TSorter, TSortEffectCallback, sortComparator, TSortParam } from ".";
+import { TSorter, TSortParam } from ".";
 import quickSort from "./quickSort";
 
 

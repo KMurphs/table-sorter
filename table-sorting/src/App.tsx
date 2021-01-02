@@ -21,7 +21,7 @@ function App() {
   
   useCustomCss_vh();
   const uri = useRef(window.location.pathname.replace(/\/$/, ""));
-  console.log(uri.current)
+  console.log(uri.current, `${uri.current}/sorter`)
 
   
   return (
@@ -31,24 +31,24 @@ function App() {
 
         {/* https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4 */}
         {/* https://www.codegrepper.com/code-examples/javascript/Programmatically+navigate+using+react+router */}
-        <Route path={`${uri}/welcome`} render={({history})=>(
-          <Welcome onStartExploring={()=>history.push("/sorter")} />
+        <Route path={`${uri.current}/welcome`} render={({history})=>(
+          <Welcome onStartExploring={()=>history.push(`${uri.current}/data`)} />
         )}/>
 
           
 
-        <Route path={`${uri}/sorter`}>
+        <Route path={`${uri.current}/data`}>
           <TableSorter />
         </Route>
 
 
 
         {/* Redirects */}
-        <Route path={`${uri}/`}>
-          <Redirect to={`${uri}/welcome`} />
+        <Route path={`${uri.current}/`}>
+          <Redirect to={`${uri.current}/welcome`} />
         </Route>
-        <Route path={`${uri}/*`}>
-          <Redirect to={`${uri}/sorter`} />
+        <Route path={`${uri.current}/*`}>
+          <Redirect to={`${uri.current}/data`} />
         </Route>
 
       </Switch>
