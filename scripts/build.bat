@@ -17,6 +17,7 @@ ROBOCOPY build ..\docs\app /MIR /NFL /NDL
 @REM Github Pages expect the entry point to be index.md or readme.md 
 @REM ROBOCOPY ..\readme.md ..\docs /MIR /NFL /NDL 
 COPY ..\readme.md ..\docs
+COPY ..\build\favicon.ico ..\docs
 @REM COPY ..\docs\index.html ..\docs\index.md 
 
 
