@@ -7,6 +7,7 @@ CD ..\table-sorting
 
 
 @REM Delete current release folder content
+DEL /F/Q/S ..\docs\app\*.* > NUL
 DEL /F/Q/S ..\docs\*.* > NUL
 
 @REM Copy release files
