@@ -44,10 +44,10 @@ function App() {
 
 
         {/* Redirects */}
-        <Route path="/">
+        <Route path={`${uri}/`}>
           <Redirect to={`${uri}/welcome`} />
         </Route>
-        <Route path="*">
+        <Route path={`${uri}/*`}>
           <Redirect to={`${uri}/sorter`} />
         </Route>
 
