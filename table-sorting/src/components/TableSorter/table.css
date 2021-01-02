@@ -107,19 +107,22 @@
 .sortable-table__container table td.isSorted{
   background-color: rgba(0,139,0,0.5);
   position: relative;
-  padding-left: 2.5rem;
 }
 .sortable-table__container table td.isSorted.Q1{
   background-color: rgba(0,139,0,0.2);
+  padding-left: 2.5rem;
 }
 .sortable-table__container table td.isSorted.Q2{
   background-color: rgba(0,139,0,0.5);
+  padding-left: 2.5rem;
 }
 .sortable-table__container table td.isSorted.Q3{
   background-color: rgba(0,139,0,0.7);
+  padding-left: 2.5rem;
 }
 .sortable-table__container table td.isSorted.Q4{
   background-color: rgba(0,139,0,0.9);
+  padding-left: 2.5rem;
 }
 .sortable-table__container table td.isSorted:before{
   position: absolute;
@@ -136,9 +139,11 @@
 }
 .sortable-table__container table td.isSorted.Q3:before{
   content: "Q3";
+  color: rgba(74, 255, 74, 0.7);
 }
 .sortable-table__container table td.isSorted.Q4:before{
   content: "Q4";
+  color: rgba(74, 255, 74, 0.7);
 }
 
 
