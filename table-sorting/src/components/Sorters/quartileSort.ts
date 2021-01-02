@@ -20,7 +20,7 @@ const markQuartiles = (arr: any[], start: number, end: number, params: TSortPara
   if(params.length === 0) return;
   const [{key, inAscending}, ...rest] = params;
 
-  const range = end - start; 
+  const range = end - start + 1; 
   if(range < 4) return;
 
   const q1 = start + Math.round(range * 0.25); 
@@ -31,7 +31,7 @@ const markQuartiles = (arr: any[], start: number, end: number, params: TSortPara
   !inAscending && marks.reverse();
 
   arr.forEach((item, index) => {
-    
+
     if((index < start) || (index > end)) return;
 
     !item["quartileMark"] && ( item["quartileMark"] = {} );
