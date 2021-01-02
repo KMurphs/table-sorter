@@ -1,8 +1,26 @@
 # Table Sorter
 
+## Overview
+
+- This app is an exercise involving different sorting algorithms on a table ui components written in **React**, **Typescript** and **TailwindCSS**.
+
+- The app attempts at researching and implementing ways to **visualize** main **sorting algorithms** such as **heap sort, merge sort, quick sort, insertion sort, selection sort, bubble sort** 
+
+- The **Drag and Drop API** is used to improve on user experience while manipulating the table and resorting it.
+
+- A good amount of time and research was spent into ways of making a huge table somewhat **responsive** and keep a good level of overall **user experience UX**.
+
+- Ways to mitigate lagging in busy react **UI**s were investigated. React tools like **useMemo** and **useCallback** along with **React.lazy** and **React.suspense** were studied in regard to this.
+
 ## Definition
 
-This app is an exercise involving different sorting algorithms on a table ui components written in **React**, **Typescript** and **TailwindCSS**.
+This is small app meant to study a few concepts I was thinking about such as visualizing sorting algorithms using only **javascript/typescript** and **css** without other tools, frameworks except for **React**. Implementing the **Drag and drop API** in the context of a react app. And studying the ways to improve responsivess of lagging react uis
+
+**Duration**: 24 hours
+
+**Tools, Technologies, skills**: React, React Router, Data Structures and Algorithms, TailwindCSS
+
+**Languages**: Javascript/Typescript, Batch files, CSS, HTML
 
 ## Context
 
