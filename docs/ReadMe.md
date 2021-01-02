@@ -58,6 +58,23 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
   - Current solution is better, but stills lags a bit. Possible improvement might be possible by using ``Memo`` on a bunch of rows. Or Maybe using ``React.suspense`` and ``React.lazy`` 
 
 
+## Github Pages
+
+1. Github Pages are serving ``<repoURL>/docs``
+    - ``_config.yml`` at ``<repoURL>/docs/_config.yml`` was updated with
+      - **baseurl**: ***"/table-sorter"***
+      - **url**: ***"https://kmurphs.github.io"*** 
+    - The custom stylesheet is still under ``assets`` at ``<repoURL>/docs/assets/``
+2. Readme is therefore seemingly served at ``<gihubPageBaseURL>/table-sorter``
+
+3. App, in the same way, is served at ``<gihubPageBaseURL>/table-sorter/app``
+    - To have this configured in this way:
+      - ``npm``'s ``package.json`` has an entry ``{"homepage": "/table-sorter/app"}``
+      - To ``fetch`` the file ``factbook.json`` that lives in the react's ``public`` folder at:<br/> 
+      ``https://github.com/KMurphs/table-sorter/blob/master/table-sorting/public/factbook.json``, 
+      <br/> one must use <br/>
+      ``fetch("/table-sorter/app/factbook.json")``  
+
 
 
 ## References
@@ -80,3 +97,4 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
 14. [https://codepen.io/kmurphs/pen/NWRXOQd](https://codepen.io/kmurphs/pen/NWRXOQd)
 15. [https://stackoverflow.com/a/36623117/9034699](https://stackoverflow.com/a/36623117/9034699)
 16. [https://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writing-manually](https://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writing-manually)
+17. [https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites](https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites)
