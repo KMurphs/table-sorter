@@ -20,7 +20,7 @@ function App() {
   // const [isAtWelcomeScreen, setIsAtWelcomeScreen] = useState<boolean>(true);
   
   useCustomCss_vh();
-  const uri = useRef(window.location.pathname);
+  const uri = useRef(window.location.pathname.replace(/\/$/, ""));
   console.log(uri.current)
 
   
