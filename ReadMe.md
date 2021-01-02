@@ -44,7 +44,7 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
 - Initially, the Table was slow on sorting. Multiple possible solutions were identified to palliate to this issue.
   
   - Using ``React.useMemo`` and ``React.useCallback``:
-  
+
     - Initially, the **sort** operation was assumed to be the culprit. But it happened, that sorting a table with the current dimensions is not the bottleneck. ``React.useMemo`` and ``React.useCallback`` are meant to mitigate the expensive time taken to perform some computation, using them with **sort** will not address the main issue.
 
     - On every render (which usually means that the table was re-sorted), each cell is re-rendered then each row. The cells that correspond to the keys used during the sort get colored. This prevents an efficient memoization of table components (table cells, rows) since most of them must be updated and re-rendered.<br> A possible approach could be to use a table where ``'<tr></tr>'`` is redefined to mean a column instead of its semantic 'horizontal' meaning. This [stackoverflow thread](https://stackoverflow.com/questions/16071864/how-to-create-tables-from-column-data-instead-of-row-data-in-html) discusses the subject. - Not applicable: Even the columns change on re-render.
@@ -63,7 +63,14 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
 
 ## Github Pages
 
-1. Github Pages are serving ``<repoURL>/docs``
+1. Note: 
+    
+    - ``<repoURL>``: ``https://github.com/KMurphs/table-sorter``
+
+    - ``<gihubPageBaseURL>``: ``https://kmurphs.github.io/table-sorter/``
+
+
+2. Github Pages are serving ``<repoURL>/docs``
     - ``_config.yml`` at ``<repoURL>/docs/_config.yml`` was updated with
 
       - **baseurl**: **"/table-sorter"**
@@ -73,9 +80,9 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
     - The custom stylesheet is still under ``assets`` at ``<repoURL>/docs/assets/``
       - The ``GET`` url for the stylesheet ``https://kmurphs.github.io/table-sorter/assets/css/style.css``
 
-2. Readme is therefore seemingly served at ``<gihubPageBaseURL>/table-sorter``
+2. Readme is therefore seemingly served at ``<gihubPageBaseURL>``
 
-3. App, in the same way, is served at ``<gihubPageBaseURL>/table-sorter/app``
+3. App, in the same way, is served at ``<gihubPageBaseURL>/app``
     - To have this configured in this way:
 
       - ``npm``'s ``package.json`` has an entry ``{"homepage": "/table-sorter/app"}``
