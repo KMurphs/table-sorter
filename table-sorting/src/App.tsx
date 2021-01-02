@@ -39,10 +39,10 @@ function App() {
         )}/>
 
           
+        <Route path={`/data`} render={({history})=>(
+          <TableSorter backToWelcome={()=>history.push(`/welcome`)} />
+        )}/>
 
-        <Route path={`/data`}>
-          <TableSorter />
-        </Route>
 
 
 

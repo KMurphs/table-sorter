@@ -4,9 +4,11 @@ import getSorter, { TSorterNames } from '../Sorters';
 import './index.css';
 import Table from './table';
 
-
+type Props = {
+  backToWelcome: ()=>void
+}
 export type TSortKey = {id: string, key: string, isDirectionUp: boolean}
-export default function TableSorter() {
+export default function TableSorter({backToWelcome}: Props) {
 
   const [checkbox, setCheckbox] = useState<boolean>(true);
   const [sortAlg, setSortAlg] = useState<TSorterNames>("quick-sort");
@@ -52,7 +54,7 @@ export default function TableSorter() {
       <header className="table-sorter__header grid p-4 lg:flex lg:justify-between lg:flex-row lg:items-end">
 
         <section className="flex justify-between items-center lg:inline-block relative z-10">
-          <h1 className="text-2xl lg:text-4xl">Table Sorter</h1>
+          <h1 className="text-2xl lg:text-4xl"><button onClick={backToWelcome} className="">Table Sorter</button></h1>
           <label htmlFor="app-menu-control--hidden" id="app-menu-control" className="text-2xl flex lg:hidden rounded-full hover:bg-gray-100 w-10 h-10 justify-center items-center">
             <i className="fas fa-bars"></i>
           </label>

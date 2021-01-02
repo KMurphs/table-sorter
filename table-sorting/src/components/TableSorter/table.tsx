@@ -26,7 +26,7 @@ export default function Table({onDragStart, keysToSortBy, sorter}: Props) {
 
   const [srcData, setSrcData] = useState<any[]>([]);
   useEffect(()=>{
-    fetch("/table-sorter/factbook.json")
+    fetch("/table-sorter/app/factbook.json")
     .then(res => res.json())
     .then(res => {
       sorter(
