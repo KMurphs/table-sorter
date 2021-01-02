@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './App.css';
 
 
@@ -12,6 +12,7 @@ import {
 import TableSorter from './components/TableSorter';
 import Welcome from './components/Welcome';
 import { useCustomCss_vh } from './custom-hooks/useCustomCss_vh';
+import { useAppURI } from './custom-hooks/useAppURI';
 
 
 
@@ -20,8 +21,8 @@ function App() {
   // const [isAtWelcomeScreen, setIsAtWelcomeScreen] = useState<boolean>(true);
   
   useCustomCss_vh();
-  const uri = useRef(window.location.pathname.replace(/\/$/, ""));
-  console.log(uri.current, `${uri.current}/sorter`)
+  const uri = useAppURI("table-sorter");
+  console.log(uri, `${uri}/data`)
 
   
   return (
@@ -31,24 +32,24 @@ function App() {
 
         {/* https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4 */}
         {/* https://www.codegrepper.com/code-examples/javascript/Programmatically+navigate+using+react+router */}
-        <Route path={`${uri.current}/welcome`} render={({history})=>(
-          <Welcome onStartExploring={()=>history.push(`${uri.current}/data`)} />
+        <Route path={`${uri}/welcome`} render={({history})=>(
+          <Welcome onStartExploring={()=>history.push(`${uri}/data`)} />
         )}/>
 
           
 
-        <Route path={`${uri.current}/data`}>
+        <Route path={`${uri}/data`}>
           <TableSorter />
         </Route>
 
 
 
         {/* Redirects */}
-        <Route path={`${uri.current}/`}>
-          <Redirect to={`${uri.current}/welcome`} />
+        <Route path={`${uri}/`}>
+          <Redirect to={`${uri}/welcome`} />
         </Route>
-        <Route path={`${uri.current}/*`}>
-          <Redirect to={`${uri.current}/data`} />
+        <Route path={`${uri}/*`}>
+          <Redirect to={`${uri}/data`} />
         </Route>
 
       </Switch>
