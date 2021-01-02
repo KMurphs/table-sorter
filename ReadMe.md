@@ -58,6 +58,15 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
   - Current solution is better, but stills lags a bit. Possible improvement might be possible by using ``Memo`` on a bunch of rows. Or Maybe using ``React.suspense`` and ``React.lazy`` 
 
 
+## Github Pages
+
+1. Github Pages are serving ``<baseURL>/docs``
+    - ``_config.yml`` at the root directory of the repo was updated with
+    - **baseurl**: ***"/table-sorter"***
+    - **url**: ***"https://kmurphs.github.io"*** 
+1. Readme is served at ``<gihubPageBaseURL>/table-sorter``
+1. App is served at ``<gihubPageBaseURL>/table-sorter/app``
+
 
 
 ## References
