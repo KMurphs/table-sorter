@@ -8,8 +8,9 @@ CD ..\table-sorting
 
 ECHO Delete current release folder content
 DEL /F/Q/S ..\docs\app\*.* > NUL
+RMDIR /Q/S ..\docs\app
 DEL /F/Q/S ..\docs\*.* > NUL
-RMDIR ..\docs\app
+
 
 ECHO Copy Github page files
 @REM Github Pages expect the entry point to be index.md or readme.md 
