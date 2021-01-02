@@ -15,8 +15,9 @@ MKDIR ..\docs\app
 ROBOCOPY build ..\docs\app /MIR /NFL /NDL 
 
 @REM Github Pages expect the entry point to be index.md or readme.md 
-ROBOCOPY ..\readme.md ..\docs /MIR /NFL /NDL 
-COPY ..\docs\index.html ..\docs\index.md 
+@REM ROBOCOPY ..\readme.md ..\docs /MIR /NFL /NDL 
+COPY ..\readme.md ..\docs
+@REM COPY ..\docs\index.html ..\docs\index.md 
 
 
 @REM Push to origin

@@ -38,6 +38,7 @@ export default function Welcome({onStartExploring}: Props) {
 
       <footer className="w-full welcome__footer ">
         <button className="btn w-full " onClick={onStartExploring}>Start Exploring</button>
+        <a className="btn btn--link text-muted" href={"https://kmurphs.github.io/table-sorter/"}>Read the Docs</a>
       </footer>
 
 
