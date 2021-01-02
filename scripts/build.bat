@@ -11,10 +11,11 @@ DEL /F/Q/S ..\docs\*.* > NUL
 
 @REM Copy release files
 @REM https://stackoverflow.com/a/7487697/9034699
-ROBOCOPY build ..\docs /MIR /NFL /NDL 
+MKDIR ..\docs\app
+ROBOCOPY build ..\docs\app /MIR /NFL /NDL 
 
 @REM Github Pages expect the entry point to be index.md or readme.md 
-@REM robocopy ..\readme.md ..\docs /MIR /NFL /NDL 
+ROBOCOPY ..\readme.md ..\docs /MIR /NFL /NDL 
 COPY ..\docs\index.html ..\docs\index.md 
 
 

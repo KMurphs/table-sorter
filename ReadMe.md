@@ -53,6 +53,7 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
     
     In our case, since re-rendering the data that's already on the DOM is consumming, we would need to prevent them from re-rendering.<br>
 
+  - Current solution is better, but stills lags a bit. Possible improvement might be possible by using ``Memo`` on a bunch of rows. Or Maybe using ``React.suspense`` and ``React.lazy`` 
 
 
 
@@ -75,3 +76,5 @@ To sort the table, drag one of the headers in the indicated zone. Once drop in t
 14. [https://codepen.io/kmurphs/pen/jOMYRXN](https://codepen.io/kmurphs/pen/jOMYRXN)
 14. [https://codepen.io/kmurphs/pen/WNGdYGE](https://codepen.io/kmurphs/pen/WNGdYGE)
 14. [https://codepen.io/kmurphs/pen/NWRXOQd](https://codepen.io/kmurphs/pen/NWRXOQd)
+15. [https://stackoverflow.com/a/36623117/9034699](https://stackoverflow.com/a/36623117/9034699)
+16. [https://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writing-manually](https://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writing-manually)
