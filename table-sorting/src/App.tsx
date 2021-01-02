@@ -26,30 +26,30 @@ function App() {
 
   
   return (
-    <Router>
+    <Router basename={`${uri}`}>
       <Switch>
 
 
         {/* https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4 */}
         {/* https://www.codegrepper.com/code-examples/javascript/Programmatically+navigate+using+react+router */}
-        <Route path={`${uri}/welcome`} render={({history})=>(
-          <Welcome onStartExploring={()=>history.push(`${uri}/data`)} />
+        <Route path={`/welcome`} render={({history})=>(
+          <Welcome onStartExploring={()=>history.push(`/data`)} />
         )}/>
 
           
 
-        <Route path={`${uri}/data`}>
+        <Route path={`/data`}>
           <TableSorter />
         </Route>
 
 
 
         {/* Redirects */}
-        <Route path={`${uri}/`}>
-          <Redirect to={`${uri}/welcome`} />
+        <Route path={`/`}>
+          <Redirect to={`/welcome`} />
         </Route>
-        <Route path={`${uri}/*`}>
-          <Redirect to={`${uri}/data`} />
+        <Route path={`/*`}>
+          <Redirect to={`/data`} />
         </Route>
 
       </Switch>
