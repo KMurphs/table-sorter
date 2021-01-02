@@ -18,7 +18,7 @@ This is small app meant to study a few concepts I was thinking about such as vis
 
 **Duration**: 24 hours
 
-**Tools, Technologies, skills**: React, React Router, Data Structures and Algorithms, TailwindCSS
+**Tools, Technologies, Skills**: React, React Router, Data Structures and Algorithms, TailwindCSS
 
 **Languages**: Javascript/Typescript, Batch files, CSS, HTML
 
