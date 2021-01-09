@@ -1,6 +1,6 @@
 # Table Sorter
 
-A styled version of this documentation can be found at: (https://kmurphs.github.io/table-sorter/)[https://kmurphs.github.io/table-sorter/]
+A styled version of this documentation can be found at: https://kmurphs.github.io/table-sorter/
 
 ## Overview
 
